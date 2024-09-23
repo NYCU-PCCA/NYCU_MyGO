@@ -4,4 +4,5 @@ map ; :
 map <C-l> :nohl<CR>
 au filetype c,cpp ino <F9> <ESC>:w<CR>:!~/r.sh '%'<CR>
 au filetype c,cpp  no <F9> <ESC>:w<CR>:!~/r.sh '%'<CR>
+ca Hash w !cpp -dD -P -fpreprocessed \| tr -d '[:space:]' \| md5sum \| cut -c-6
 " setxkbmap -option caps:ctrl_modifier
