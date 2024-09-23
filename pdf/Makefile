@@ -12,4 +12,4 @@ clean:
 fonts: fonts/jf-openhuninn-2.1.ttf
 
 fonts/jf-openhuninn-2.1.ttf:
-	wget https://github.com/justfont/open-huninn-font/releases/download/v2.1/jf-openhuninn-2.1.ttf -o $@
+	wget https://github.com/justfont/open-huninn-font/releases/download/v2.1/jf-openhuninn-2.1.ttf -O $@
