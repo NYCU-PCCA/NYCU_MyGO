@@ -37,9 +37,7 @@ jobs:
           extra_system_packages: "ttf-inconsolata gcc g++"
 
       - name: Public
-        run: |
-          mkdir public
-          cp pdf/codebook.pdf public
+        run: cp pdf/codebook.pdf public
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
