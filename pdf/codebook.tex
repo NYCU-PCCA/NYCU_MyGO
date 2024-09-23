@@ -1,26 +1,59 @@
+%!TEX program = xelatex
 \documentclass[a4paper,10pt,twocolumn,oneside]{article}
-\setlength{\columnsep}{10pt}                                                                    %兩欄模式的間距
-\setlength{\columnseprule}{0pt}                                                                %兩欄模式間格線粗細
+\setlength{\columnsep}{10pt}    % 兩欄模式的間距
+\setlength{\columnseprule}{0pt} % 兩欄模式間格線粗細
 
-\usepackage{amsthm}								%定義，例題
+\usepackage{xparse}
+\usepackage{algpseudocode}
+\usepackage{amsthm}             % 定義，例題
 \usepackage{amssymb}
+\usepackage{amsmath}
 %\usepackage[margin=2cm]{geometry}
-\usepackage{fontspec}								%設定字體
+\usepackage{fontspec}           % 設定字體
+\usepackage{setspace}
 \usepackage{color}
 \usepackage[x11names]{xcolor}
-\usepackage{listings}								%顯示code用的
-%\usepackage[Glenn]{fncychap}						%排版，頁面模板
-\usepackage{fancyhdr}								%設定頁首頁尾
-\usepackage{graphicx}								%Graphic
+\usepackage{listings}           % 顯示code用的
+%\usepackage[Glenn]{fncychap}   % 排版，頁面模板
+\usepackage{fancyhdr}           % 設定頁首頁尾
+\usepackage{graphicx}           % Graphic
 \usepackage{enumerate}
-\usepackage{titlesec}
-\usepackage{amsmath}
-\usepackage[CheckSingle, CJKmath]{xeCJK}
-% \usepackage{CJKulem}
+% \setlist[enumerate]{
+%   leftmargin=*,
+%   nolistsep,
+% }
+% \setlist[itemize]{
+%   leftmargin=*,
+%   nolistsep,
+% }
+\usepackage{array}
+\usepackage{tikz}
+
+\usepackage{changepage}
+\usepackage[compact]{titlesec}    %compact mode for reducing margin
+\usepackage{hyperref}
+\hypersetup{
+  linktoc=all,
+  hidelinks
+}
+
+\usepackage[toc]{multitoc}
+\renewcommand*{\multicolumntoc}{2}
+
+\usepackage[titles]{tocloft}
+\renewcommand\cftsubsecfont{\footnotesize}
+\renewcommand\cftsubsecpagefont{\footnotesize}
+\renewcommand\cftsecindent{0.1em}
+\renewcommand\cftsecnumwidth{1.2em}
+\renewcommand\cftsubsecindent{0.5em}
+\renewcommand\cftsubsecnumwidth{2.0em}
+\renewcommand\cftdotsep{2}
+\renewcommand\cftbeforesecskip{0.4em}
+\renewcommand\cftbeforesubsecskip{0.2em}
 
 %\usepackage[T1]{fontenc}
-\usepackage{amsmath, courier, listings, fancyhdr, graphicx}
-\topmargin=0pt
+\usepackage{courier}
+\topmargin=-1pt
 \headsep=5pt
 \textheight=780pt
 \footskip=0pt
@@ -33,51 +66,108 @@
 \evensidemargin=0pt
 \hoffset=-42pt
 
-%\renewcommand\listfigurename{圖目錄}
-%\renewcommand\listtablename{表目錄} 
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+
+% minimize margin
+\def\footnotesize{\fontsize{8}{9.5}\selectfont}
+\titlespacing*{\section} {0pt}{*0}{*0}
+\titlespacing*{\subsection} {0pt}{*0}{*0}
+\titlespacing*{\subsubsection} {0pt}{*{-0.5}}{*{-0.5}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\usepackage[CheckSingle, CJKmath]{xeCJK}
+
 % Consolas, mononoki
-\setmainfont{Inconsolata}				%主要字型
+\setmainfont{Inconsolata}               %主要字型
 \setmonofont{Inconsolata}
 \setCJKmainfont{Noto Sans Mono CJK TC}
 \setCJKmonofont{Noto Sans Mono CJK TC}
-\XeTeXlinebreaklocale "zh"						%中文自動換行
-\XeTeXlinebreakskip = 0pt plus 1pt				%設定段落之間的距離
-\setcounter{secnumdepth}{3}						%目錄顯示第三層
+\XeTeXlinebreaklocale "zh"                      %中文自動換行
+\XeTeXlinebreakskip = 0pt plus 1pt              %設定段落之間的距離
+\setcounter{secnumdepth}{3}                     %目錄顯示第三層
+
+% \usepackage[CheckSingle, CJKmath]{xeCJK}
+% \setmainfont[
+%   Path=./fonts/Montserrat/,
+%   BoldFont=Montserrat-SemiBold,
+%   ItalicFont=Montserrat-MediumItalic,
+%   BoldItalicFont=Montserrat-SemiBoldItalic
+% ]{Montserrat-Medium}
+% \setmonofont[
+%   Path=./fonts/SourceCodePro/,
+%   BoldFont=SourceCodePro-Black,
+%   ItalicFont=SourceCodePro-Italic,
+%   BoldItalicFont=SourceCodePro-BlackItalic,
+% ]{SourceCodePro-Regular}
+% \setCJKmainfont[Path=./fonts/open-huninn-font/]{jf-openhuninn-1.1}  %中文字型
+% \XeTeXlinebreaklocale "zh"
+% \XeTeXlinebreakskip = 0pt plus 0pt
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \makeatletter
 \lst@CCPutMacro\lst@ProcessOther {"2D}{\lst@ttfamily{-{}}{-{}}}
 \@empty\z@\@empty
 \makeatother
-\lstset{											% Code顯示
-language=C++,										% the language of the code
-basicstyle=\footnotesize\ttfamily, 						% the size of the fonts that are used for the code
-%numbers=left,										% where to put the line-numbers
-numberstyle=\footnotesize,						% the size of the fonts that are used for the line-numbers
-stepnumber=1,										% the step between two line-numbers. If it's 1, each line  will be numbered
-numbersep=5pt,										% how far the line-numbers are from the code
-backgroundcolor=\color{white},					% choose the background color. You must add \usepackage{color}
-showspaces=false,									% show spaces adding particular underscores
-showstringspaces=false,							% underline spaces within strings
-showtabs=false,									% show tabs within strings adding particular underscores
-frame=false,											% adds a frame around the code
-tabsize=2,											% sets default tabsize to 2 spaces
-captionpos=b,										% sets the caption-position to bottom
-breaklines=true,									% sets automatic line breaking
-breakatwhitespace=false,							% sets if automatic breaks should only happen at whitespace
-escapeinside={\%*}{*)},							% if you want to add a comment within your code
-morekeywords={constexpr},									% if you want to add more keywords to the set
-keywordstyle=\bfseries\color{Blue1},
-commentstyle=\itshape\color{Red4},
-stringstyle=\itshape\color{Green4},
+\lstset{
+  language=[11]C++,                   % the language of the code
+  basicstyle=\footnotesize\ttfamily,  % the size of the fonts that are used for the code
+  % basicstyle=\linespread{0.0}\footnotesize\ttfamily,
+  %numbers=left,                      % where to put the line-numbers
+  %numberstyle=\footnotesize,         % the size of the fonts that are used for the line-numbers
+  %stepnumber=1,                      % the step between two line-numbers. If it's 1, each line  will be numbered
+  %numbersep=5pt,                     % how far the line-numbers are from the code
+  backgroundcolor=\color{white},      % choose the background color. requires \usepackage{color}
+  showspaces=false,                   % show spaces adding particular underscores
+  showstringspaces=false,             % underline spaces within strings
+  showtabs=false,                     % show tabs within strings adding particular underscores
+  frame=false,                        % adds a frame around the code
+  tabsize=2,                          % sets default tabsize to 2 spaces
+  captionpos=b,                       % sets the caption-position to bottom
+  breaklines=true,                    % sets automatic line breaking
+  breakatwhitespace=false,            % sets if automatic breaks should only happen at whitespace
+  escapeinside={\%*}{*)},             % if you want to add a comment within your code
+  morekeywords={*,size_t,int64_t},    % if you want to add more keywords to the set
+  keywordstyle=\bfseries\color{Blue1},
+  commentstyle=\itshape\color{Red4},
+  stringstyle=\itshape\color{Green4},
+  literate={\ \ }{{\ }}1,
+  aboveskip=-0.4em,
+  belowskip=-0.4375em,
 }
 
-\titlespacing\section{0pt}{6pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
-\titlespacing\subsection{0pt}{4pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
-\titlespacing\subsubsection{0pt}{2pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ExplSyntaxOn
+\NewDocumentCommand{\captureshell}{som}
+ {
+  \sdaau_captureshell:Ne \l__sdaau_captureshell_out_tl { #3 }
+  \IfBooleanT { #1 }
+   {% we may need to stringify the result
+    \tl_set:Nx \l__sdaau_captureshell_out_tl
+     { \tl_to_str:N \l__sdaau_captureshell_out_tl }
+   }
+  \IfNoValueTF { #2 }
+   {
+    \tl_use:N \l__sdaau_captureshell_out_tl
+   }
+   {
+    \tl_set_eq:NN #2 \l__sdaau_captureshell_out_tl
+   }
+ }
+
+\tl_new:N \l__sdaau_captureshell_out_tl
+
+\cs_new_protected:Nn \sdaau_captureshell:Nn
+ {
+  \sys_get_shell:nnN { #2 } { } #1
+  \tl_trim_spaces:N #1 % remove leading and trailing spaces
+ }
+\cs_generate_variant:Nn \sdaau_captureshell:Nn { Ne }
+\ExplSyntaxOff
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -86,18 +176,63 @@ stringstyle=\itshape\color{Green4},
 \fancyfoot{}
 %\fancyfoot[R]{\includegraphics[width=20pt]{ironwood.jpg}}
 \fancyhead[L]{NYCU\_MyGo!!!}
-\fancyhead[C]{記得初始化}
+\fancyhead[C]{記得初始化 · 確認題目範圍}
 \fancyhead[R]{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\contentsname}{Contents} 
 
-\scriptsize
+\begin{spacing}{0.5}
 \tableofcontents
+\end{spacing}
+
+\scriptsize
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\newpage
+\lstdefinelanguage{vim}
+{
+  % list of keywords
+  morekeywords={
+    set, se,
+    colo, syn,
+    let,
+    map, nmap, ino, no,
+    filetype,
+    indent,
+    on, off,
+    au,
+    Plugin,
+    call,
+    ca,
+  },
+  morecomment=[l]{"}, % l is for line comment
+  morestring=[b]' % defines that strings are enclosed in double quotes
+}
 
-\small
+\newcommand{\Prefix}{./}
+\newcommand{\HashFile}[1]{\captureshell{cpp #1 -dD -P -fpreprocessed | tr -d '[:space:]' | md5sum | cut -c-6}}
+
+\NewDocumentCommand{\IncludeCode}{ O{C++} m m }{
+  \subsection[#2]{#2}
+  \lstinputlisting[#1]{\Prefix#3}
+}
+
+\NewDocumentCommand{\IncludeCodeHash}{ O{C++} m m }{
+  \subsection[#2]{#2{ \small[\HashFile{\Prefix#3}] }}
+  \lstinputlisting[#1]{\Prefix#3}
+}
+
+\newcommand{\IncludeTex}[2]{
+  \subsection{#1}
+  \input{\Prefix#2}
+}
+
+\newcommand{\SectionTitle}[1]{
+  \vspace{-0.5em}
+  \section{#1}
+  \vspace{-1.0em}
+}
+
 \input{content.tex}
 
 \end{document}
