@@ -6,6 +6,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 concurrency:
   group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
   cancel-in-progress: true
@@ -25,7 +28,7 @@ jobs:
       - name: Build
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: pdf/content.tex
+          root_file: pdf/codebook.tex
           latexmk_use_xelatex: true
           latexmk_shell_escape: true
           work_in_root_file_dir: true
