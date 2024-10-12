@@ -20,7 +20,7 @@ template <typename T> struct M {
       if (b & 1) r *= a;
     return r;
   }
-  M inv(M b) { return b.pow(MOD - 2); }
+  M inv() { return pow(MOD - 2); }
   M operator+=(const M &b) {
     if ((v += b.v) >= MOD) v -= MOD;
     return *this;

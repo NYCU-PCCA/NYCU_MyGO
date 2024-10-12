@@ -11,36 +11,46 @@
 \IncludeCodeHash[]{IO Optimize}{io-optimize.cpp}
 \IncludeCodeHash[]{Pragma}{pragma.cpp}
 
-\SectionTitle{data struct}
+\SectionTitle{Data Structure}
 \renewcommand\Prefix{../codes/data-structure/}
-\IncludeCodeHash[]{bit}{bit.cpp}
-\IncludeCodeHash[]{link cut tree}{link-cut-tree.cpp}
-\IncludeCodeHash[]{segment tree}{segment-tree.cpp}
-\IncludeCodeHash[]{sparse table}{sparse-table.cpp}
-\IncludeCodeHash[]{treap}{treap.cpp}
-\IncludeCodeHash[]{zkw segment tree}{zkw-segment-tree.cpp}
+% \IncludeCodeHash[]{BIT}{bit.cpp}
+\IncludeCodeHash[]{Link Cut Tree}{link-cut-tree.cpp}
+% \IncludeCodeHash[]{線段樹}{segment-tree.cpp}
+% \IncludeCodeHash[]{Sparse Table}{sparse-table.cpp}
+\IncludeCodeHash[]{Treap}{treap.cpp}
+\IncludeCodeHash[]{zkw 線段樹}{zkw-segment-tree.cpp}
 
-\SectionTitle{graph}
+\SectionTitle{Graph}
 \renewcommand\Prefix{../codes/graph/}
-\IncludeCodeHash[]{2sat}{2sat.cpp}
-\IncludeCodeHash[]{bcc-bridge}{bcc-bridge.cpp}
-\IncludeCodeHash[]{bcc-vertex}{bcc-vertex.cpp}
+\IncludeCodeHash[]{2 SAT}{2sat.cpp}
+\IncludeCodeHash[]{邊雙連通}{bcc-bridge.cpp}
+\IncludeCodeHash[]{點雙連通}{bcc-vertex.cpp}
 
-\SectionTitle{math}
+\SectionTitle{Flow / Matching}
+\renewcommand\Prefix{../codes/graph/}
+\IncludeCodeHash[]{}
+
+\SectionTitle{Math}
 \renewcommand\Prefix{../codes/math/}
-\IncludeCodeHash[]{crt}{crt.cpp}
-\IncludeCodeHash[]{extgcd}{extgcd.cpp}
-\IncludeCodeHash[]{factor}{factor.hpp}
-\IncludeCodeHash[]{fast_gcd}{fast_gcd.hpp}
-\IncludeCodeHash[]{fft}{fft.hpp}
-\IncludeCodeHash[]{floor-ceil}{floor-ceil.cpp}
-\IncludeCodeHash[]{fraction}{fraction.cpp}
-\IncludeCodeHash[]{josephus}{josephus.cpp}
-\IncludeCodeHash[]{linear-sieve}{linear-sieve.cpp}
-% \IncludeCodeHash[]{lucas}{lucas.tex}
-\IncludeCodeHash[]{miller-rabbin}{miller-rabin.cpp}
-\IncludeCodeHash[]{modmul}{modmul.hpp}
-\IncludeCodeHash[]{modular}{modular.hpp}
-\IncludeCodeHash[]{pollard_rho}{pollard_rho.cpp}
-\IncludeCodeHash[]{primes}{primes.cpp}
-\IncludeCodeHash[]{simplex}{simplex.cpp}
+\IncludeCodeHash[]{中國剩餘定理}{crt.cpp}
+\IncludeCodeHash[]{擴展歐幾里德}{extgcd.cpp}
+\IncludeCodeHash[]{快速 GCD}{fast_gcd.hpp}
+% \IncludeCodeHash[]{Fast Fourier Transform}{fft.hpp}
+\IncludeCodeHash[]{floor / ceil Function}{floor-ceil.cpp}
+\IncludeCodeHash[]{fraction struct}{fraction.cpp}
+% \IncludeCodeHash[]{約瑟夫問題 O(n)}{josephus.cpp}
+% \IncludeCodeHash[]{質數線性篩}{linear-sieve.cpp}
+\IncludeTex{Lucas Theorem}{lucas.tex}
+\IncludeCodeHash[]{Miller Rabin}{miller-rabin.cpp}
+\IncludeCodeHash[]{乘法取模}{modmul.hpp}
+\IncludeCodeHash[]{Modular struct}{modular.cpp}
+\IncludeCodeHash[]{Pollard Rho}{pollard_rho.cpp}
+\IncludeCode[]{一些質數}{primes.cpp}
+\IncludeCodeHash[]{Simplex}{simplex.cpp}
+
+\SectionTitle{Polynomial}
+\renewcommand\Prefix{../codes/polynomial}
+% \IncludeCodeHash[]{Fast Fourier Transform}{fft.cpp}
+% \IncludeCodeHash[]{Number Theory Transform}{ntt.cpp}
+\IncludeCodeHash[]{位元卷積}{fwt.cpp}
+\IncludeCodeHash[]{多項式全家桶}{polyop.cpp}

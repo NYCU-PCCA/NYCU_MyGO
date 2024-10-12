@@ -9,7 +9,7 @@ struct NTT {
   NTT(int n) {
     maxn = 2 << __lg(n+1);
     w.resize(maxn);
-    int dw = mpow(RT, (P - 1) / maxn);
+    int dw = fpow(RT, (P - 1) / maxn);
     w[0] = 1;
     for (int i = 1; i < maxn; ++i) w[i] = w[i - 1] * dw % P;
   }
