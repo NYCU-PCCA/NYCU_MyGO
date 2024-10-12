@@ -11,6 +11,7 @@
 \IncludeCodeHash[]{IO Optimize}{io-optimize.cpp}
 \IncludeCodeHash[]{Pragma}{pragma.cpp}
 
+
 \SectionTitle{Data Structure}
 \renewcommand\Prefix{../codes/data-structure/}
 % \IncludeCodeHash[]{BIT}{bit.cpp}
@@ -20,15 +21,31 @@
 \IncludeCodeHash[]{Treap}{treap.cpp}
 \IncludeCodeHash[]{zkw 線段樹}{zkw-segment-tree.cpp}
 
+
 \SectionTitle{Graph}
 \renewcommand\Prefix{../codes/graph/}
 \IncludeCodeHash[]{2 SAT}{2sat.cpp}
 \IncludeCodeHash[]{邊雙連通}{bcc-bridge.cpp}
 \IncludeCodeHash[]{點雙連通}{bcc-vertex.cpp}
 
+
 \SectionTitle{Flow / Matching}
 \renewcommand\Prefix{../codes/graph/}
-\IncludeCodeHash[]{}
+\IncludeCodeHash[]{二分圖匹配（匈牙利）}{match-slow.cpp}
+\IncludeCodeHash[]{二分圖匹配}{bipartite_matching.cpp}
+\IncludeCodeHash[]{二分圖完美匹配（帶權、KM）}{km.cpp}
+\IncludeCodeHash[]{一般圖匹配}{general_matching.cpp}
+\IncludeCodeHash[]{一般圖匹配（帶權）}{general_matching_weighted.cpp}
+% \IncludeCodeHash[]{Dinic}{dinic.cpp}
+\IncludeCodeHash[]{上下界可行流（Dinic）}{bounded_flow.cpp}
+\IncludeCodeHash[]{預流推進}{isap.cpp}
+\IncludeCodeHash[]{MCMF（Dijkstra）}{mcmf_dijkstra.cpp}
+\IncludeCodeHash[]{MCMF（快速、HLPP）}{hlpp.cpp}
+\IncludeCodeHash[]{全域最小割}{global_mincut.cpp}
+\IncludeCodeHash[]{最小割樹}{gomory_hu.cpp}
+% \IncludeCodeHash[]{這是啥？}{mincost_circulation-xxx.cpp}
+\IncludeTex{model TeX}{model.tex}
+
 
 \SectionTitle{Math}
 \renewcommand\Prefix{../codes/math/}
@@ -42,11 +59,12 @@
 % \IncludeCodeHash[]{質數線性篩}{linear-sieve.cpp}
 \IncludeTex{Lucas Theorem}{lucas.tex}
 \IncludeCodeHash[]{Miller Rabin}{miller-rabin.cpp}
-\IncludeCodeHash[]{乘法取模}{modmul.hpp}
+\IncludeCodeHash[]{乘法取模}{modmul.cpp}
 \IncludeCodeHash[]{Modular struct}{modular.cpp}
 \IncludeCodeHash[]{Pollard Rho}{pollard_rho.cpp}
 \IncludeCode[]{一些質數}{primes.cpp}
 \IncludeCodeHash[]{Simplex}{simplex.cpp}
+
 
 \SectionTitle{Polynomial}
 \renewcommand\Prefix{../codes/polynomial}
