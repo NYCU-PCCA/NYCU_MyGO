@@ -11,7 +11,7 @@ ARGS+="${@:2:$#}"
 ha=($(echo "$ARGS" | md5sum))
 s=.$hf.$ha
 if [ -e $o$s ]; then
-  time >&2 echo cached
+  >&2 echo cached
 else
   rm $o* || true
   set -eux
