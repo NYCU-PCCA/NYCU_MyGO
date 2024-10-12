@@ -1,5 +1,5 @@
-template <typename T>
-void fft_(int n,vector<T> &a,vector<T> &rt,bool inv) {
+template <typename T> /// n = |a| = |rt| = 2^k
+void fft_(int n,vector<T> &a,vector<T> &rt, bool inv) {
   vector<int> br(n);
   for (int i = 1; i < n; i++) {
     br[i] = (i&1) ? br[i - 1] + n / 2 : br[i / 2] / 2;
@@ -29,7 +29,7 @@ void fft(vector<complex<double>> &a, bool inv) {
 // 51*(2^25)+1, 1711276033, 29
 void ntt(vector<Mod> &a, bool inv, Mod primitive_root){
   int n = a.size();
-  Mod root = primitive_root ^ (MOD - 1) / n;
+  Mod root = primitive_root.pow(MOD - 1) / n;
   vector<Mod> rt(n + 1, 1);
   for (int i = 0; i < n; i++) rt[i + 1] = rt[i] * root;
   fft_(n, a, rt, inv);

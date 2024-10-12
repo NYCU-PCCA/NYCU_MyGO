@@ -1,8 +1,9 @@
 /* py: from fractions import Decimal, Fraction */
+template <typename T = int>
 struct fraction {
-  ll n, d;
-  fraction(ll _n = 0, ll _d = 1): n(_n), d(_d) {
-    ll g = __gcd(n,d);
+  T n, d;
+  fraction(T _n = 0, T _d = 1): n(_n), d(_d) {
+    T g = gcd(n,d);
     n /= g; d /= g;
     if(d < 0) n *= -1, d *= -1; }
   fraction operator-() { return fraction(-n,d); }
