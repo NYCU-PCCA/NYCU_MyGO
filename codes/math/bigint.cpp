@@ -88,7 +88,7 @@ struct bigN:vector<int>{
         if((res[i+j]+=at(i)*b[j])>=base){
           res[i+j+1]+=res[i+j]/base;
           res[i+j]%=base;
-        }//���k��carry�|����
+        }
     return res.trim(),res;
   }
   bigN operator/(const bigN &b)const{
