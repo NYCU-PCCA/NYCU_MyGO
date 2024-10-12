@@ -20,6 +20,7 @@
 % \IncludeCodeHash[]{Sparse Table}{sparse-table.cpp}
 \IncludeCodeHash[]{Treap}{treap.cpp}
 \IncludeCodeHash[]{zkw 線段樹}{zkw-segment-tree.cpp}
+\IncludeCodeHash[]{吉如一線段樹}{segment_tree_beats.cpp}
 
 
 \SectionTitle{Graph}
@@ -27,6 +28,15 @@
 \IncludeCodeHash[]{2 SAT}{2sat.cpp}
 \IncludeCodeHash[]{邊雙連通}{bcc-bridge.cpp}
 \IncludeCodeHash[]{點雙連通}{bcc-vertex.cpp}
+\IncludeCodeHash[]{重心剖分}{centroid-decomposition.cpp}
+\IncludeCodeHash[]{樹鏈剖分}{heavy-light-decomposition.cpp}
+\IncludeCodeHash[]{最小有向生成樹 $O(E \cdot f(E))$}{minimum_arborescence-fast.cpp}
+\IncludeCodeHash[]{最小有向生成樹 $O(VE)$}{minimum_arborescence.cpp}
+\IncludeCodeHash[]{最小平均環}{minimum_mean_cycle.cpp}
+\IncludeCodeHash[]{支配樹}{dominator_tree.cpp}
+\IncludeCodeHash[]{Minimum Steiner Tree}{minimum_steiner_tree.cpp}
+\IncludeCodeHash[]{平面圖判定}{planar_check.cpp}
+\IncludeCodeHash[]{邊著色 $O(E^2)$}{vizing.cpp}
 
 
 \SectionTitle{Flow / Matching}
@@ -49,10 +59,11 @@
 
 \SectionTitle{Math}
 \renewcommand\Prefix{../codes/math/}
+% \IncludeCodeHash[]{中國剩餘定理}{crt-ckiseki.cpp}
 \IncludeCodeHash[]{中國剩餘定理}{crt.cpp}
-\IncludeCodeHash[]{擴展歐幾里德}{extgcd.cpp}
+% \IncludeCodeHash[]{擴展歐幾里德}{exgcd-ckiseki.cpp}
+\IncludeCodeHash[]{擴展歐幾里德}{exgcd.cpp}
 \IncludeCodeHash[]{快速 GCD}{fast_gcd.hpp}
-% \IncludeCodeHash[]{Fast Fourier Transform}{fft.hpp}
 \IncludeCodeHash[]{floor / ceil Function}{floor-ceil.cpp}
 \IncludeCodeHash[]{fraction struct}{fraction.cpp}
 % \IncludeCodeHash[]{約瑟夫問題 O(n)}{josephus.cpp}
@@ -62,15 +73,37 @@
 \IncludeCodeHash[]{乘法取模}{modmul.cpp}
 \IncludeCodeHash[]{Modular struct}{modular.cpp}
 \IncludeCodeHash[]{Pollard Rho}{pollard_rho.cpp}
-\IncludeCode[]{一些質數}{primes.cpp}
 \IncludeCodeHash[]{Simplex}{simplex.cpp}
-\IncludeCodeHash[]{Min25-warner1129}{Min25-warner1129.cpp}
-\IncludeCodeHash[]{theorem}{theorem.tex}
+\IncludeCodeHash[]{Min_25-warner1129}{Min_25-warner1129.cpp}
+\IncludeCodeHash[]{大數模板}{bigint.cpp}
+
+\IncludeCodeHash[]{min{k|l <= (ak mod m) <= r}}{mod_min.cpp}
+\IncludeCodeHash[]{找線性遞迴關係}{Berlekamp-Massey.cpp}
+\IncludeCodeHash[]{康托展開}{cantor_expansion.cpp}
+\IncludeCodeHash[]{特徵多項式}{char_polynomial.cpp}
+\IncludeCodeHash[]{計算矩陣 det}{determinant.cpp}
+\IncludeCodeHash[]{離散對數}{discrete_log.cpp}
+\IncludeCodeHash[]{$n!$ without factor $p$}{fac_no_p.cpp}
+\IncludeCodeHash[]{枚舉 $\lfloor x/i \rfloor$}{floor_enum.cpp}
+% \IncludeCodeHash[]{Floor Sum}{floor_sum.cpp}
+\IncludeCodeHash[]{根號數質數}{pi_count.cpp}
+\IncludeCodeHash[]{二次剩餘}{quadratic_residue.cpp}
+% \IncludeCodeHash[]{這是啥？}{schreier_sims.cpp}
+\IncludeCodeHash[]{解聯立方程}{simultaneous_equations.cpp}
+
+\IncludeTex{Simplex 構造}{simplex_construction.tex}
+\IncludeCode[]{一些質數}{primes.cpp}
+\IncludeTex{各種數字}{numbers.tex}
+\IncludeTex{生成函數們}{generating_function.tex}
+\IncludeTex{Estimation}{estimation.tex}
+\IncludeTex{Euclidean}{euclidean.tex}
+\IncludeTex{Theorem}{theorem.tex}
 
 
 \SectionTitle{Polynomial}
 \renewcommand\Prefix{../codes/polynomial/}
 % \IncludeCodeHash[]{Fast Fourier Transform}{fft.cpp}
+\IncludeCodeHash[]{FFT / NTT}{fft-ckiseki.hpp}
 % \IncludeCodeHash[]{Number Theory Transform}{ntt.cpp}
 \IncludeCodeHash[]{位元卷積}{fwt.cpp}
 \IncludeCodeHash[]{多項式全家桶}{polyop-luogu.cpp}
