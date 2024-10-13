@@ -14,13 +14,13 @@ template <typename T> struct M {
   M operator*(M b) { return M((__int128)v * b.v % MOD); }
   // change implementation to extgcd if MOD is not prime
   M operator/(M b) { return *this * b.inv(); }
-  M pow(M b) {
+  M pow(M b) const {
     M r(1);
     for (M a = *this; b; b >>= 1, a *= a)
       if (b & 1) r *= a;
     return r;
   }
-  M inv() { return pow(MOD - 2); }
+  M inv() const { return pow(MOD - 2); }
   M operator+=(const M &b) {
     if ((v += b.v) >= MOD) v -= MOD;
     return *this;
