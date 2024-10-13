@@ -1,32 +1,24 @@
-#include <bits/stdc++.h>
-#define ll long long
-#define all(v) v.begin(), v.end()
-#define matsuri pair<int, int>
-// const int iris = 1e9+7;
-const int iris = 998244353;
-using namespace std;
-using lld = int64_t;
-const int mod = iris;
+constexpr int MOD = 998'244'353;
 int bit_ceil(int a){return 1<<__lg(a-1)+1;}
 int modpow(ll a, ll b){
   ll res = 1;
   while (b){
     if (b & 1)
-      res = res * a % mod;
-    a = a * a % mod;
+      res = res * a % MOD;
+    a = a * a % MOD;
     b /= 2;
   }
   return res;
 }
-int get_root(int n, int P = mod){ // ensure 0 <= n < p
+int get_root(int n, int P = MOD){ // ensure 0 <= n < p
   if (P == 2 or n == 0)
     return n;
-  auto check = [&](lld x)
+  auto check = [&](ll x)
   { return modpow(int(x), (P - 1) / 2); };
   if (check(n) != 1)
     return -1;
   mt19937 rnd(7122);
-  lld z = 1, w;
+  ll z = 1, w;
   while (check(w = (z * z - n + P) % P) != P - 1)
     z = rnd() % P;
   const auto M = [P, w](auto &u, auto &v)
@@ -36,27 +28,24 @@ int get_root(int n, int P = mod){ // ensure 0 <= n < p
     return make_pair((a * c + b * d % P * w) % P,
              (a * d + b * c) % P);
   };
-  pair<lld, lld> r(1, 0), e(z, 1);
+  pair<ll, ll> r(1, 0), e(z, 1);
   for (int q = (P + 1) / 2; q; q >>= 1, e = M(e, e))
     if (q & 1)
       r = M(r, e);
-  return int(r.first);//sqrt(n) mod P where P is prime
+  return int(r.first);//sqrt(n) MOD P where P is prime
 }
-int modinv(ll a){return modpow(a, iris - 2);}
-int mul(ll a, ll b){return a * b % iris;}
-int add(ll a, ll b){return (a + b) % iris;}
-int sub(ll a, ll b){return (a - b + iris) % iris;}
+int modinv(ll a){return modpow(a, MOD - 2);}
+int mul(ll a, ll b){return a * b % MOD;}
+int add(ll a, ll b){return (a + b) % MOD;}
+int sub(ll a, ll b){return (a - b + MOD) % MOD;}
 
-template <int mod, int G, int maxn>
-struct NTT
-{
+template <int MOD, int G, int maxn>
+struct NTT {
   static_assert(maxn == (maxn & -maxn));
   int roots[maxn];
-  NTT()
-  {
-    int r = modpow(G, (mod - 1) / maxn);
-    for (int i = maxn >> 1; i; i >>= 1)
-    {
+  NTT() {
+    int r = modpow(G, (MOD - 1) / maxn);
+    for (int i = maxn >> 1; i; i >>= 1) {
       roots[i] = 1;
       for (int j = 1; j < i; j++)
         roots[i + j] = mul(roots[i + j - 1], r);
@@ -65,20 +54,16 @@ struct NTT
       // roots [i+j] = polar <llf >(1 , PI * j / i);
     }
   }
-  // n must be 2^k, and 0 <= F[i] < mod
-  void operator()(int F[], int n, bool inv = false)
-  {
-    for (int i = 0, j = 0; i < n; i++)
-    {
+  // n must be 2^k, and 0 <= F[i] < MOD
+  void operator()(int F[], int n, bool inv = false) {
+    for (int i = 0, j = 0; i < n; i++) {
       if (i < j)
         swap(F[i], F[j]);
-      for (int k = n >> 1; (j ^= k) < k; k >>= 1)
-        ;
+      for (int k = n >> 1; (j ^= k) < k; k >>= 1) ;
     }
     for (int s = 1; s < n; s *= 2)
       for (int i = 0; i < n; i += s * 2)
-        for (int j = 0; j < s; j++)
-        {
+        for (int j = 0; j < s; j++) {
           int a = F[i+j], b=mul(F[i+j+s], roots[s+j]);
           F[i + j] = add(a, b);
           F[i + j + s] = sub(a, b);
@@ -92,23 +77,20 @@ struct NTT
   }
 };
 
-NTT<mod, 3, 1 << 23> ntt;
+NTT<MOD, 3, 1 << 23> ntt;
 
 #define fi(l, r) for (size_t i = (l); i < (r); i++)
 using S = vector<int>;
-auto Mul(auto a, auto b, size_t sz)
-{
+auto Mul(auto a, auto b, size_t sz) {
   a.resize(sz), b.resize(sz);
   ntt(a.data(), sz);
   ntt(b.data(), sz);
   fi(0, sz) a[i] = mul(a[i], b[i]);
   return ntt(a.data(), sz, true), a;
 }
-S Newton(const S &v, int init, auto &&iter)
-{
+S Newton(const S &v, int init, auto &&iter) {
   S Q = {init};
-  for (int sz = 2; Q.size() < v.size(); sz *= 2)
-  {
+  for (int sz = 2; Q.size() < v.size(); sz *= 2) {
     S A{begin(v), begin(v) + min(sz, int(v.size()))};
     A.resize(sz * 2), Q.resize(sz * 2);
     iter(Q, A, sz * 2);
@@ -116,84 +98,70 @@ S Newton(const S &v, int init, auto &&iter)
   }
   return Q.resize(v.size()), Q;
 }
-S Inv(const S &v)
-{ // v[0] != 0
+S Inv(const S &v) { // v[0] != 0
   return Newton(v, modinv(v[0]),
-          [](S &X, S &A, int sz)
-          {
+          [](S &X, S &A, int sz) {
     ntt(X.data(), sz), ntt(A.data(), sz);
     for (int i = 0; i < sz; i++)
     X[i] = mul(X[i], sub(2, mul(X[i], A[i])));
     ntt(X.data(), sz, true); });
 }
-S Dx(S A)
-{
+S Dx(S A) {
   fi(1, A.size()) A[i - 1] = mul(i, A[i]);
   return A.empty() ? A : (A.pop_back(), A);
 }
-S Sx(S A)
-{
+S Sx(S A) {
   A.insert(A.begin(), 0);
   fi(1, A.size()) A[i] = mul(modinv(int(i)), A[i]);
   return A;
 }
-S Ln(const S &A)
-{ // coef[0] == 1; res[0] == 0
+S Ln(const S &A) { // coef[0] == 1; res[0] == 0
   auto B = Sx(Mul(Dx(A),Inv(A),bit_ceil(A.size()*2)));
   return B.resize(A.size()), B;
 }
-S Exp(const S &v)
-{ // coef[0] == 0; res[0] == 1
+S Exp(const S &v) { // coef[0] == 0; res[0] == 1
   return Newton(v, 1,
-          [](S &X, S &A, int sz)
-          {
+          [](S &X, S &A, int sz) {
     auto Y = X; Y.resize(sz / 2); Y = Ln(Y);
     fi(0, Y.size()) Y[i] = sub(A[i], Y[i]);
     Y[0] = add(Y[0], 1); X = Mul(X, Y, sz); });
 }
-S Pow(S a, lld M)
-{ // period mod*(mod-1)
+S Pow(S a, ll M) { // period MOD*(MOD-1)
   assert(!a.empty() && a[0] != 0);
-  const auto imul = [&a](int s)
-  {
+  const auto imul = [&a](int s) {
   for (int &x: a) x = mul(x, s); };
   int c = a[0];
   imul(modinv(c));
   a = Ln(a);
-  imul(int(M % mod));
+  imul(int(M % MOD));
   a = Exp(a);
-  imul(modpow(c, int(M % (mod - 1))));
-  return a; // mod x^N where N=a.size()
+  imul(modpow(c, int(M % (MOD - 1))));
+  return a; // MOD x^N where N=a.size()
 }
-S Sqrt(const S &v)
-{ // need: QuadraticResidue
+S Sqrt(const S &v) { // need: QuadraticResidue
   assert(!v.empty() && v[0] != 0);
   const int r = get_root(v[0]);
   assert(r != -1);
   return Newton(v, r,
-          [](S &X, S &A, int sz)
-          {
+          [](S &X, S &A, int sz) {
     auto Y = X; Y.resize(sz / 2);
     auto B = Mul(A, Inv(Y), sz);
-    for (int i = 0, inv2 = mod / 2 + 1; i < sz; i++)
+    for (int i = 0, inv2 = MOD / 2 + 1; i < sz; i++)
     X[i] = mul(inv2, add(X[i], B[i])); });
 }
-S Mul(auto &&a, auto &&b)
-{
+S Mul(auto &&a, auto &&b) {
   const auto n = a.size() + b.size() - 1;
   auto R = Mul(a, b, bit_ceil(n));
   return R.resize(n), R;
 }
-S MulT(S a, S b, size_t k)
-{
+S MulT(S a, S b, size_t k) {
   assert(b.size());
-  reverse(all(b));
+  reverse(ALL(b));
   auto R = Mul(a, b);
   R = vector(R.begin() + b.size() - 1, R.end());
   return R.resize(k), R;
 }
-S Eval(const S &f, const S &x)
-{
+S Eval(const S &f, const S &x) {
   if (f.empty())
     return vector(x.size(), 0);
   const int n = int(max(x.size(), f.size()));
@@ -203,8 +171,7 @@ S Eval(const S &f, const S &x)
   for (int i = n - 1; i > 0; i--)
     q[i] = Mul(q[i << 1], q[i << 1 | 1]);
   q[1] = MulT(f, Inv(q[1]), n);
-  for (int i = 1; i < n; i++)
-  {
+  for (int i = 1; i < n; i++) {
     auto L = q[i << 1], R = q[i << 1 | 1];
     q[i << 1 | 0] = MulT(q[i], R, L.size());
     q[i << 1 | 1] = MulT(q[i], L, R.size());
@@ -213,21 +180,20 @@ S Eval(const S &f, const S &x)
     ans[i] = q[i + n][0];
   return ans.resize(x.size()), ans;
 }
-pair<S, S> DivMod(const S &A, const S &B)
-{
+pair<S, S> DivMod(const S &A, const S &B) {
   assert(!B.empty() && B.back() != 0);
   if (A.size() < B.size())
     return {{}, A};
   const auto sz = A.size() - B.size() + 1;
   S X = B;
-  reverse(all(X));
+  reverse(ALL(X));
   X.resize(sz);
   S Y = A;
-  reverse(all(Y));
+  reverse(ALL(Y));
   Y.resize(sz);
   S Q = Mul(Inv(X), Y);
   Q.resize(sz);
-  reverse(all(Q));
+  reverse(ALL(Q));
   X = Mul(Q, B);
   Y = A;
   fi(0, Y.size()) Y[i] = sub(Y[i], X[i]);
@@ -251,8 +217,8 @@ int LinearRecursionKth(S a, S c, int64_t k)
   q.resize(sz);
   for (int r; r = (k & 1), k; k >>= 1)
   {
-    fill(d + all(p), 0);
-    fill(d + 1 + all(q), 0);
+    fill(d + ALL(p), 0);
+    fill(d + 1 + ALL(q), 0);
     ntt(p.data(), sz);
     ntt(q.data(), sz);
     for (size_t i = 0; i < sz; i++)
@@ -269,27 +235,9 @@ int LinearRecursionKth(S a, S c, int64_t k)
   return mul(p[0], modinv(q[0]));
 } // a_n = \sum c_j a_(n-j), c_0 is not used
 
-void solve()
-{
-  int n;
-  cin >> n;
-  S arr(n);
-  for (int &x : arr)
-    cin >> x;
+void solve() {
+  int n; cin >> n; S arr(n);
+  for (int &x : arr) cin >> x;
   arr = Ln(arr);
-  for (int x : arr)
-    cout << x << ' ';
-}
-
-signed main()
-{
-  ios::sync_with_stdio(0);
-  cin.tie(0);
-
-  int T = 1;
-  // cin>>T;
-  while (T--)
-    solve();
-
-  return 0;
+  for (int x : arr) cout << x << ' ';
 }

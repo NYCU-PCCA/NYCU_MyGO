@@ -1,5 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
 struct FringeOpposedSubset {
   deque<int> left, right;
   FringeOpposedSubset() = default;

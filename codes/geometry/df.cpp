@@ -1,20 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-
-template<typename T, typename U>
-bool chmax(T& x, U y) { return x < y ? x = y, 1 : 0; }
-template<typename T, typename U>
-bool chmin(T& x, U y) { return x > y ? x = y, 1 : 0; }
-
-using ld = long double;
-
-/*
-using Dt = ld;
-using Pt = pair<Dt,Dt>;
-using Vt = Pt;
-using Line = pair<Pt,Pt>;
-*/
-
 const ld PI = acosl(-1);
 const ld eps = 1e-9;
 bool isZ(double x) { return -eps < x and x < eps; }

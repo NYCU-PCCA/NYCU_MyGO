@@ -1,8 +1,3 @@
-#include <algorithm>
-#include <iostream>
-using namespace std;
-typedef long long int;
-
 const int maxc = 200005;
 const int INF = 1e18;
 
