@@ -31,7 +31,7 @@ struct line {
   using P = Pt<T>; P p1, p2; T a, b, c; // ax+bc = c
   line() {}
   line(P x, P y): p1(x), p2(y) {}
-  void pton() { a = p1.y - p2.y; b = p2.y - p1.y;
+  void pton() { a = p1.y - p2.y; b = p2.x - p1.x;
     c = a * p1.x + b * p1.y; }
   // >0 left | =0 on line | <0 right
   T ori(P p) {return (p2-p1).cross(p-p1);}
@@ -60,8 +60,8 @@ struct line {
 	P mirror(P p) { // require pton()
     auto a2 = a*a, b2 = b*b, d = a2 + b2;
     return {
-      (b2*p.x - a2*p.x - 2*a*b*p.y - 2*a*c) / d,
-		  (a2*p.y - b2*p.y - 2*a*b*p.x - 2*b*c) / d
+      (b2*p.x - a2*p.x - 2*a*b*p.y + 2*a*c) / d,
+		  (a2*p.y - b2*p.y - 2*a*b*p.x + 2*b*c) / d
     }; }
 	bool equal(line l) {
 		return ori(l.p1) == 0 and ori(l.p2) == 0; }
