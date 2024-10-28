@@ -7,7 +7,7 @@ p=${f:0:1}
 cp -n $f .t/$f.$hf
 case $ext in
   cpp)
-    r=(./codes/basic/r.sh $f 0)
+    r=(~/r.sh $f)
     ;;
   py)
     r=(python3 $f)
@@ -19,5 +19,5 @@ esac
 for i in $p/*.in; do
   a=${i/.in/.ans}
   echo $i
-  diff --color $a <(${r[*]} < $i)
+  diff --color -s $a <(${r[*]} < $i) # nl
 done
