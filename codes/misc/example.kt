@@ -1,4 +1,5 @@
 import java.util.*
+import java.math.BigInteger;
 import kotlin.math.*
 private class Scanner {
     val lines = java.io.InputStreamReader(System.`in`).readLines()
@@ -12,6 +13,9 @@ private class Scanner {
     fun nextInt() = next().toInt()
     fun nextLong() = next().toLong()
 }
+
+fun Long.toBigInteger() = BigInteger.valueOf(this)
+fun Int.toBigInteger() = BigInteger.valueOf(toLong())
 
 fun main() {
     val sc = Scanner()
@@ -37,6 +41,10 @@ fun main() {
         val x = st.binarySearch(k)
         buf.append("$k\n")
     }
+
+    val a = BigInteger(sc.next())
+    val b = sc.nextLong().toBigInteger()
+    println(a * b)
 
     print(buf)
 }
