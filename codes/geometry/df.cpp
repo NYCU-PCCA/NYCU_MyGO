@@ -1,14 +1,15 @@
 const ld PI = acosl(-1);
 const ld eps = 1e-9;
-bool isZ(double x) { return -eps < x and x < eps; }
-bool isZ(int x) { return x == 0; }
+bool isZ(ld x) { return -eps < x and x < eps; }
+bool isZ(ll x) { return x == 0; }
 template<typename T>
 struct Pt {
   using P = Pt; T x, y;
   Pt() {}
   Pt(T _x, T _y): x(_x), y(_y) {}
   template<typename U>
-  Pt<U> to() { return Pt<U>(x, y); }
+  Pt<U> to() const { return Pt<U>(x, y); }
+  operator Pt<ld>() const { return to<ld>(); }
   P operator+(P o) {return P{x+o.x,y+o.y};}
   P operator-(P o) {return P{x-o.x,y-o.y};}
   P operator*(T k) {return P{x*k, y*k};}
