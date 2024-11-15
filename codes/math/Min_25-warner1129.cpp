@@ -23,14 +23,12 @@ Comb<200005 * 30> comb;
 vector<int> primes, minp;
 vector<bool> isp;
 void sieve(int n) {
-  minp.assign(n + 1, 0);
   primes.clear();
+  minp.assign(n + 1, 0);
   isp.assign(n + 1, 0);
   for (int i = 2; i <= n; i++) {
     if (minp[i] == 0) {
-      minp[i] = i;
-      isp[i] = 1;
-      primes.push_back(i);
+      minp[i] = i, isp[i] = 1, primes.eb(i);
     }
     for (i64 p : primes) {
       if (p * i > n) break;
@@ -50,17 +48,14 @@ void sieve(int n) {
 // call apply(g_i, gsum_i, c_i) and call work(f)
 struct Min25 {
   const i64 N, sqrtN;
-  vector<i64> Q;
-  vector<i64> Fp, S;
-  int id(i64 x) { return x <= sqrtN ? SZ(Q) - x : N / x - 1; }
+  vector<i64> Q, Fp, S;
+  int id(i64 x) { return x <= sqrtN ? SZ(Q)-x : N/x-1; }
   Min25(i64 N) : N(N), sqrtN(sqrtl(N)) {
     sieve(sqrtN);
     for (i64 l = 1, r; l <= N; l = r + 1) {
-      Q.push_back(N / l);
-      r = N / (N / l);
+      Q.eb(N / l), r = N / (N / l);
     }
-    Fp.assign(SZ(Q), 0);
-    S.assign(SZ(Q), 0);
+    Fp.assign(SZ(Q), 0), S.assign(SZ(Q), 0);
   }
   void apply(const auto &f, const auto &fsum, i64 coef) {
     vector<i64> F(SZ(Q));

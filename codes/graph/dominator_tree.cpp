@@ -4,13 +4,13 @@ struct Dominator { // dom[n] unique node dominates n
   Dominator(int n) : g(n), r(n), rdom(n), tk(0) {
     dfn = rev = fa = sdom = dom =
       val = rp = vector<int>(n, -1); }
-  void add_edge(int x, int y) { g[x].push_back(y); }
+  void add_edge(int x, int y) { g[x].eb(y); }
   void dfs(int x) {
     rev[dfn[x] = tk] = x;
     fa[tk] = sdom[tk] = val[tk] = tk; tk++;
     for (int u : g[x]) {
       if (dfn[u] == -1) dfs(u), rp[dfn[u]] = dfn[x];
-      r[dfn[u]].push_back(dfn[x]);
+      r[dfn[u]].eb(dfn[x]);
     }
   }
   void merge(int x, int y) { fa[x] = y; }
@@ -29,7 +29,7 @@ struct Dominator { // dom[n] unique node dominates n
     for (int i = tk - 1; i >= 0; --i) {
       for (int u : r[i])
         sdom[i] = min(sdom[i], sdom[find(u)]);
-      if (i) rdom[sdom[i]].push_back(i);
+      if (i) rdom[sdom[i]].eb(i);
       for (int u : rdom[i]) {
         int p = find(u);
         dom[u] = (sdom[p] == i ? i : p);

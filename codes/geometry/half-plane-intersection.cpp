@@ -14,13 +14,13 @@ vector<Line> halfPlaneInter(vector<Line> lines) {
   for(int i = 0; i < sz; ++i) {
     ord[i] = i;
     Vt d = lines[i].sd - lines[i].ft;
-    ata[i] = atan2(d.sd, d.ft);
+    ata[i] = atan2l(d.sd, d.ft);
   }
   sort(ord.begin(), ord.end(), [&](int i, int j) {
-      if ( isZ(ata[i] - ata[j]) )
-          return cross(lines[i].sd - lines[i].ft,
-            lines[j].sd - lines[i].ft) < 0;
-      return ata[i] < ata[j];
+    if (isZ(ata[i] - ata[j]))
+      return cross(lines[i].sd - lines[i].ft,
+          lines[j].sd - lines[i].ft) < 0;
+    return ata[i] < ata[j];
   });
   vector<Line> fin;
   for (int i = 0; i < sz; ++i)
@@ -28,16 +28,16 @@ vector<Line> halfPlaneInter(vector<Line> lines) {
       fin.eb(lines[ord[i]]);
   deque<Line> dq;
   for (int i = 0; i < fin.size(); i++){
-    while(dq.size() >= 2 and !isin(fin[i],
-        dq[dq.size()-2], dq.back()))  dq.pb();
-    while(dq.size() >= 2 and !isin(fin[i],
+    while(SZ(dq) >= 2 and !isin(fin[i],
+        dq[SZ(dq)-2], dq.back())) dq.pb();
+    while(SZ(dq) >= 2 and !isin(fin[i],
         dq[0], dq[1]))  dq.pf();
-    dq.push_back(fin[i]);
+    dq.eb(fin[i]);
   }
-  while(dq.size() >= 3 and !isin(dq[0],
-        dq[dq.size()-2], dq.back()))  dq.pb();
-  while(dq.size() >= 3 and !isin(dq.back(),
-        dq[0], dq[1]))  dq.pf();
+  while(SZ(dq) >= 3 and !isin(dq[0],
+      dq[SZ(dq)-2], dq.back())) dq.pb();
+  while(SZ(dq) >= 3 and !isin(dq.back(),
+      dq[0], dq[1])) dq.pf();
   vector<Line> res(ALL(dq));
   return res;
 }

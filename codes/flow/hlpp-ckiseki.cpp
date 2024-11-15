@@ -3,14 +3,14 @@ template <typename T> struct HLPP {
   int n, mx; vector<vector<Edge>> adj;vector<T> excess;
   vector<int> d, cnt, active; vector<vector<int>> B;
   void add_edge(int u, int v, int f) {
-    Edge a{v, (int)size(adj[v]), 0, f};
-    Edge b{u, (int)size(adj[u]), 0, 0};
-    adj[u].push_back(a), adj[v].push_back(b);
+    Edge a{v, SZ(adj[v]), 0, f};
+    Edge b{u, SZ(adj[u]), 0, 0};
+    adj[u].eb(a), adj[v].eb(b);
   }
   void enqueue(int v) {
     if (!active[v] && excess[v] > 0 && d[v] < n) {
       mx = max(mx, d[v]);
-      B[d[v]].push_back(v); active[v] = 1;
+      B[d[v]].eb(v); active[v] = 1;
     }
   }
   void push(int v, Edge &e) {

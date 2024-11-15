@@ -49,7 +49,7 @@ void solve(const vector<vector<int>> &gen, int _n) {
     for (int j = i; j < n; ++j)
       for (int k = 0; k < SZ(bkts[i]); ++k)
         for (int l = 0; l < SZ(bkts[j]); ++l)
-          upd.emplace(pii(i, k), pii(j, l));
+          upd.ee(pii(i, k), pii(j, l));
   while (!upd.empty()) {
     auto a = upd.front().X;
     auto b = upd.front().Y;
@@ -59,8 +59,8 @@ void solve(const vector<vector<int>> &gen, int _n) {
     pii pr = pii(res, SZ(bkts[res]) - 1);
     for (int i = 0; i < n; ++i)
       for (int j = 0; j < SZ(bkts[i]); ++j) {
-        if (i <= res) upd.emplace(pii(i, j), pr);
-        if (res <= i) upd.emplace(pr, pii(i, j));
+        if (i <= res) upd.ee(pii(i, j), pr);
+        if (res <= i) upd.ee(pr, pii(i, j));
       }
   }
 }

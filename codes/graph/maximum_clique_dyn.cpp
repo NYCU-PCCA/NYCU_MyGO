@@ -35,7 +35,7 @@ struct MaxClique {
       if (q + c.back() <= ans) return;
       cur[q++] = p;
       vector<int> nr;
-      for (int x : v) if (G[p][x]) nr.push_back(x);
+      for (int x : v) if (G[p][x]) nr.eb(x);
       if (!nr.empty()) pre_dfs(nr, i, mask & G[p]);
       else if (q > ans) ans = q, copy_n(cur, q, sol);
       c.pb(); --q;

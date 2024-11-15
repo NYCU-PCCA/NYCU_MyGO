@@ -34,7 +34,7 @@ struct MCMF { // 0-base
     auto relax = [&](int u, T d, T cap, Edge *e) {
       if (cap > 0 and dis[u] > d) {
         dis[u] = d, up[u] = cap, past[u] = e;
-        pq.emplace(d, u);
+        pq.ee(d, u);
       }
     };
     relax(s, 0, INF, 0);
