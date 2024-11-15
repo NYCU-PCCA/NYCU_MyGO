@@ -1,7 +1,7 @@
 struct Meta {
     static Meta Null;
     size_t rank;
-    ll sum[2];
+    int sum[2];
     Meta(size_t _r = 0): rank(_r), sum{ 0, 0 } {}
 } Meta::Null;
 
@@ -18,7 +18,7 @@ template<typename Node_CItr, typename Node_Itr, typename Cmp_Fn, typename _Alloc
 class node_update {
 public:
     using metadata_type = Meta;
-    inline ll sum(int i) const;
+    inline int sum(int i) const;
 private:
     virtual Node_CItr node_begin() const = 0;
     virtual Node_CItr node_end() const = 0;
@@ -35,7 +35,7 @@ protected:
     }
 };
 
-PB_DS_CLASS_T_DEC inline ll PB_DS_CLASS_C_DEC::
+PB_DS_CLASS_T_DEC inline int PB_DS_CLASS_C_DEC::
 sum(int i) const {
     auto it = node_begin();
     auto end = node_end();

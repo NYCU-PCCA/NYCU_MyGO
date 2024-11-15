@@ -31,14 +31,14 @@ struct MaxClique {
   void dfs(vector<int> &v, vector<int> &c,
       int i, bits mask) {
     while (!v.empty()) {
-      int p = v.back(); v.pop_back(); mask[p] = 0;
+      int p = v.back(); v.pb(); mask[p] = 0;
       if (q + c.back() <= ans) return;
       cur[q++] = p;
       vector<int> nr;
       for (int x : v) if (G[p][x]) nr.push_back(x);
       if (!nr.empty()) pre_dfs(nr, i, mask & G[p]);
       else if (q > ans) ans = q, copy_n(cur, q, sol);
-      c.pop_back(); --q;
+      c.pb(); --q;
     }
   }
   int solve() {

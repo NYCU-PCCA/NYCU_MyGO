@@ -1,8 +1,8 @@
 struct KM { // maximize, test @ UOJ 80
-  int n, l, r; ll ans; // fl and fr are the match
-  vector<ll> hl, hr; vector<int> fl, fr, pre, q;
+  int n, l, r, ans; // fl and fr are the match
+  vector<int> hl, hr, fl, fr, pre, q;
   void bfs(const auto &w, int s) {
-    vector<int> vl(n), vr(n); vector<ll> slk(n, INF);
+    vector<int> vl(n), vr(n), slk(n, INF);
     l = r = 0; vr[q[r++] = s] = true;
     auto check = [&](int x) -> bool {
       if (vl[x] || slk[x] > 0) return true;
@@ -16,7 +16,7 @@ struct KM { // maximize, test @ UOJ 80
         for (int x = 0, y = q[l++]; x < n; ++x) if (!vl[x])
           if (chmin(slk[x], hl[x] + hr[y] - w[x][y]))
             if (pre[x] = y, !check(x)) return;
-      ll d = ranges::min(slk);
+      int d = ranges::min(slk);
       for (int x = 0; x < n; ++x)
         vl[x] ? hl[x] += d : slk[x] -= d;
       for (int x = 0; x < n; ++x) if (vr[x]) hr[x] -= d;

@@ -32,7 +32,7 @@ void solve(vector<pii> &E) {
     vector<pii> L;
     fill_n(vst + 1, n, 0);
     while (!G[u][v0]) {
-      L.emplace_back(v, d = X[v]);
+      L.eb(v, d = X[v]);
       if (!C[v][c]) for (int a = SZ(L) - 1; a >= 0; --a) c = color(u, L[a].X, c);
       else if (!C[u][d]) for (int a = SZ(L) - 1; a >= 0; --a) color(u, L[a].X, L[a].Y);
       else if (vst[d]) break;

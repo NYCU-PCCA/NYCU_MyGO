@@ -36,12 +36,12 @@ struct Fringe {
     while (FOPs.front().right.empty() &&
            FOPs.front().left.front() > o.FOPs.front().left.back()) {
       extend(o.FOPs.front().right, FOPs.front().left);
-      FOPs.pop_front();
+      FOPs.pf();
     }
   }
   void align_duplicates(int dfs_h) {
     if (FOPs.front().left.back() == dfs_h) {
-      FOPs.front().left.pop_back();
+      FOPs.front().left.pb();
       swap_side();
     }
   }
@@ -73,10 +73,10 @@ struct Fringe {
   void prune(int deep) {
     auto [left, right] = lr_condition(deep);
     while (!FOPs.empty() && (left || right)) {
-      if (left) FOPs.front().left.pop_front();
-      if (right) FOPs.front().right.pop_front();
+      if (left) FOPs.front().left.pf();
+      if (right) FOPs.front().right.pf();
       if (FOPs.front().left.empty() && FOPs.front().right.empty())
-        FOPs.pop_front();
+        FOPs.pf();
       else
         swap_side();
       if (!FOPs.empty()) tie(left, right) = lr_condition(deep);
@@ -92,7 +92,7 @@ unique_ptr<Fringe> get_merged_fringe(deque<unique_ptr<Fringe>>& upper) {
 }
 void merge_fringes(vector<deque<unique_ptr<Fringe>>>& fringes, int deep) {
   auto mf = get_merged_fringe(fringes.back());
-  fringes.pop_back();
+  fringes.pb();
   if (mf) {
     mf->prune(deep);
     if (mf->FOPs.size()) fringes.back().push_back(move(mf));
@@ -111,8 +111,8 @@ struct Graph {
   vector<Edge> edges;
   void add_edge(int from, int to) {
     if (from == to) return;
-    edges.emplace_back(from, to);
-    edges.emplace_back(to, from);
+    edges.eb(from, to);
+    edges.eb(to, from);
   }
   void build() {
     sort(edges.begin(), edges.end(), [](const auto& a, const auto& b) {

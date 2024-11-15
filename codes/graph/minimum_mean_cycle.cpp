@@ -19,7 +19,7 @@ struct MinimumMeanCycle {
       if (a == -1 || a * tb > ta * b) a = ta, b = tb;
     }
     if (a != -1) {
-      int g = __gcd(a, b);
+      int g = gcd(a, b);
       return pii(a / g, b / g);
     }
     return pii(-1LL, -1LL);

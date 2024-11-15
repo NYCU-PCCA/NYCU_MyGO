@@ -2,7 +2,7 @@ struct Cent_Dec { // 1-base
   vector<pii> G[MAXN];
   pii info[MAXN], upinfo[MAXN]; // itself / climbing up
   int n, pa[MAXN], layer[MAXN], sz[MAXN], done[MAXN];
-  ll dis[__lg(MAXN) + 1][MAXN];
+  int dis[__lg(MAXN) + 1][MAXN];
   void init(int _n) {
     n = _n, layer[0] = -1;
     fill_n(pa + 1, n, 0), fill_n(done + 1, n, 0);
@@ -24,7 +24,7 @@ struct Cent_Dec { // 1-base
       mx = max(mxsz, num - sz[x]), c = x;
     if (chmin(mx, max(mxsz, num - sz[x]))) c = x;
   }
-  void dfs(int x, int f, ll d, int org) {
+  void dfs(int x, int f, int d, int org) {
     // if required, add self info or climbing info
     dis[layer[org]][x] = d;
     for (auto [y,w] : G[x])
@@ -53,8 +53,8 @@ struct Cent_Dec { // 1-base
         upinfo[a].X += dis[ly - 1][x], ++upinfo[a].Y;
     }
   }
-  ll query(int x) {
-    ll rt = 0;
+  int query(int x) {
+    int rt = 0;
     for (int a = x, ly = layer[a]; a;
          a = pa[a], --ly) {
       rt += info[a].X + info[a].Y * dis[ly][x];

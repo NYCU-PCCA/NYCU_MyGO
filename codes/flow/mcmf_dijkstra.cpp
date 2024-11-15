@@ -1,4 +1,4 @@
-template<int MAXV, typename T = ll,
+template<int MAXV, typename T = int,
   T INF = numeric_limits<T>::max()>
 struct MCMF { // 0-base
   struct Edge {
@@ -67,7 +67,7 @@ struct MCMF { // 0-base
     for (int i = 0; i < n; ++i) G[i].clear();
   }
   void add_edge(int a, int b, T cap, T c) {
-    G[a].eb(Edge{ a, b, SZ(G[b]), cap, 0, c });
+    G[a].eb(Edge{ a, b, SZ(G[b]), cap, 0,  c });
     G[b].eb(Edge{ b, a, SZ(G[a])-1, 0, 0, -c });
   }
 };

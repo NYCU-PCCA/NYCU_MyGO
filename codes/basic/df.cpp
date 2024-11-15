@@ -1,19 +1,23 @@
 #ifndef MyGO
 #define MyGO
 #include MyGO __FILE__ MyGO
-signed main() { fast; return 0; }
+void solve() {}
+int32_t main() { fastIO(); solve(); return 0; }
 #else
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-#define _ <<' '<<
-#define ALL(v) v.begin(),v.end()
-#define ft first
-#define sd second
-using ll = long long; // lld
-using ld = long double; // llf
+using i64, ll
+#define int, double
+#define ALL(x), RALL(x), SZ(x)
+#define eb, ef, ee, pb, pf
+#define _ << ' ' <<
+#define X, ft
+#define Y, sd
+ostream& operator << (ostream &, const vector<T>&);
 #ifdef DEBUG
-#define fast
+#define fastIO, debug
 #else
-#define fast cin.tie(0)->sync_with_stdio(0)
+#define fastIO cin.tie(0)->sync_with_stdio(0)
 #endif
+chmin, chmax;
 #endif

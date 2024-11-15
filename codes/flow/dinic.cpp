@@ -27,8 +27,8 @@ template <typename Cap = int64_t> struct Dinic {
   }
   void init(int n_) { G.assign(n = n_, vector<E>()); }
   void add_edge(int u, int v, Cap c) {
-    G[u].emplace_back(v, int(G[v].size()), c);
-    G[v].emplace_back(u, int(G[u].size())-1, 0);
+    G[u].eb(v, int(G[v].size()), c);
+    G[v].eb(u, int(G[u].size())-1, 0);
   }
   Cap max_flow(int st_, int ed_) {
     st = st_, ed = ed_; Cap ret = 0;

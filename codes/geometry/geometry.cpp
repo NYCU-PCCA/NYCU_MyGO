@@ -162,7 +162,7 @@ struct polygon {
              now.cross(p[t  ]-p[i]) ) t = (t+1) % n;
       ans = max(ans,(p[i]-p[t]).abs2());
     }
-    return p.pop_back(), ans;
+    return p.pb(), ans;
   }
   T min_cover_rectangle() { // 最小覆蓋矩形
     size_t n = p.size(), t = 1, r = 1, l = 0;
@@ -182,7 +182,7 @@ struct polygon {
         (now.dot(p[r]-p[i]) - now.dot(p[l]-p[i])) / d;
       chmin(ans, tmp);
     }
-    return p.pop_back(), ans;
+    return p.pb(), ans;
   }
   T dis2(polygon &pl) { //凸包最近距離平方
     auto &P = p, &Q = pl.p;
@@ -198,7 +198,7 @@ struct polygon {
       chmin(ans, l1.seg_dis2(l2));
       l = (l+1) % n;
     }
-    return P.pop_back(), Q.pop_back(), ans;
+    return P.pb(), Q.pb(), ans;
   }
   static char sign(P t) {
     return (t.y == 0 ? t.x : t.y) < 0;

@@ -43,7 +43,7 @@ template <typename T> struct HLPP {
     cnt[0] = n; enqueue(s); active[t] = 1;
     for (mx = 0; mx >= 0;)
       if (!B[mx].empty()) {
-        int v = B[mx].back(); B[mx].pop_back();
+        int v = B[mx].back(); B[mx].pb();
         active[v] = 0; discharge(v);
       } else --mx;
     return excess[t];

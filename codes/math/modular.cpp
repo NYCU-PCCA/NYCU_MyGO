@@ -11,7 +11,7 @@ template <typename T> struct M {
   M operator-() { return M(-v); }
   M operator+(M b) { return M(v + b.v); }
   M operator-(M b) { return M(v - b.v); }
-  M operator*(M b) { return M((__int128)v * b.v % MOD); }
+  M operator*(M b) { return M(i128(v) * b.v % MOD); }
   // change implementation to extgcd if MOD is not prime
   M operator/(M b) { return *this * b.inv(); }
   M pow(int b) const {
@@ -32,6 +32,6 @@ template <typename T> struct M {
   friend M &operator*=(M &a, M b) { return a = a * b; }
   friend M &operator/=(M &a, M b) { return a = a / b; }
 };
-using Mod = M<int>;
-template <> int Mod::MOD = 1e9+7;
-int &MOD = Mod::MOD;
+using mint = M<int>;
+// template <> int mint::MOD = 1e9+7;
+// int &mod = mint::MOD;

@@ -23,8 +23,8 @@ struct mcSFlow{
     cost*=N;// to preserve integer-values
     epsilon = max(epsilon, abs(cost));
     assert(a>=0&&a<N&&b>=0&&b<N);
-    G[a].emplace_back(b, cost, cap, G[b].size());
-    G[b].emplace_back(a, -cost, 0, G[a].size()-1);
+    G[a].eb(b, cost, cap, G[b].size());
+    G[b].eb(a, -cost, 0, G[a].size()-1);
   }
   flow_t calc_max_flow(){ // Dinic max-flow
     vector<flow_t> dist(N), state(N);

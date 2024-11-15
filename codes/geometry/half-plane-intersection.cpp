@@ -25,19 +25,19 @@ vector<Line> halfPlaneInter(vector<Line> lines) {
   vector<Line> fin;
   for (int i = 0; i < sz; ++i)
     if (!i or !isZ(ata[ord[i]] - ata[ord[i-1]]))
-      fin.emplace_back(lines[ord[i]]);
+      fin.eb(lines[ord[i]]);
   deque<Line> dq;
   for (int i = 0; i < fin.size(); i++){
     while(dq.size() >= 2 and !isin(fin[i],
-        dq[dq.size()-2], dq.back()))  dq.pop_back();
+        dq[dq.size()-2], dq.back()))  dq.pb();
     while(dq.size() >= 2 and !isin(fin[i],
-        dq[0], dq[1]))  dq.pop_front();
+        dq[0], dq[1]))  dq.pf();
     dq.push_back(fin[i]);
   }
   while(dq.size() >= 3 and !isin(dq[0],
-        dq[dq.size()-2], dq.back()))  dq.pop_back();
+        dq[dq.size()-2], dq.back()))  dq.pb();
   while(dq.size() >= 3 and !isin(dq.back(),
-        dq[0], dq[1]))  dq.pop_front();
+        dq[0], dq[1]))  dq.pf();
   vector<Line> res(ALL(dq));
   return res;
 }
