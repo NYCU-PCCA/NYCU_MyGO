@@ -1,50 +1,35 @@
-struct KM { // 0-base, maximum matching
-  int w[N][N], hl[N], hr[N], slk[N];
-  int fl[N], fr[N], pre[N], qu[N], ql, qr, n;
-  bool vl[N], vr[N];
-  void init(int _n) {
-    n = _n;
-    for (int i = 0; i < n; ++i)
-      fill_n(w[i], n, -INF);
-  }
-  void add_edge(int a, int b, int wei) {
-    w[a][b] = wei;
-  }
-  bool Check(int x) {
-    if (vl[x] = 1, ~fl[x])
-      return vr[qu[qr++] = fl[x]] = 1;
-    while (~x) swap(x, fr[fl[x] = pre[x]]);
-    return 0;
-  }
-  void bfs(int s) {
-    fill_n(slk, n, INF), fill_n(vl, n, 0), fill_n(vr, n, 0);
-    ql = qr = 0, qu[qr++] = s, vr[s] = 1;
-    for (int d; ; ) {
-      while (ql < qr)
-        for (int x = 0, y = qu[ql++]; x < n; ++x)
-          if (!vl[x] && slk[x] >= (d = hl[x] + hr[y] - w[x][y])) {
-            if (pre[x] = y, d) slk[x] = d;
-            else if (!Check(x)) return;
-        }
-      d = INF;
+struct KM { // maximize, test @ UOJ 80
+  int n, l, r; lld ans; // fl and fr are the match
+  vector<lld> hl, hr; vector<int> fl, fr, pre, q;
+  void bfs(const auto &w, int s) {
+    vector<int> vl(n), vr(n); vector<lld> slk(n, INF);
+    l = r = 0; vr[q[r++] = s] = true;
+    auto check = [&](int x) -> bool {
+      if (vl[x] || slk[x] > 0) return true;
+      vl[x] = true; slk[x] = INF;
+      if (fl[x] != -1) return (vr[q[r++] = fl[x]] = true);
+      while (x != -1) swap(x, fr[fl[x] = pre[x]]);
+      return false;
+    };
+    while (true) {
+      while (l < r)
+        for (int x = 0, y = q[l++]; x < n; ++x) if (!vl[x])
+          if (chmin(slk[x], hl[x] + hr[y] - w[x][y]))
+            if (pre[x] = y, !check(x)) return;
+      lld d = ranges::min(slk);
       for (int x = 0; x < n; ++x)
-        if (!vl[x] && d > slk[x]) d = slk[x];
-      for (int x = 0; x < n; ++x) {
-        if (vl[x]) hl[x] += d;
-        else slk[x] -= d;
-        if (vr[x]) hr[x] -= d;
-      }
-      for (int x = 0; x < n; ++x)
-        if (!vl[x] && !slk[x] && !Check(x)) return;
+        vl[x] ? hl[x] += d : slk[x] -= d;
+      for (int x = 0; x < n; ++x) if (vr[x]) hr[x] -= d;
+      for (int x = 0; x < n; ++x) if (!check(x)) return;
     }
   }
-  int solve() {
-    fill_n(fl, n, -1), fill_n(fr, n, -1), fill_n(hr, n, 0);
-    for (int i = 0; i < n; ++i)
-      hl[i] = *max_element(w[i], w[i] + n);
-    for (int i = 0; i < n; ++i) bfs(i);
-    int res = 0;
-    for (int i = 0; i < n; ++i) res += w[i][fl[i]];
-    return res;
+  KM(int n_, const auto &w) : n(n_), ans(0),
+    hl(n), hr(n), fl(n, -1), fr(fl), pre(n), q(n) {
+    for (int i = 0; i < n; ++i) hl[i]=ranges::max(w[i]);
+    for (int i = 0; i < n; ++i) bfs(w, i);
+    for (int i = 0; i < n; ++i) ans += w[i][fl[i]];
   }
-};
+}; // find maximum perfect matching
+// To obtain the max match of exactly K edges for
+// K = 1 ... N, initialize hl[i] = INF and bfs from all
+// unmatched right part point (fr[i] == -1)
