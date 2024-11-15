@@ -1,21 +1,23 @@
-// Push-Relabel implementation of the cost-scaling algorithm
-// Runs in O( <max_flow> * log(V * max_edge_cost)) = O( V^3 * log(V * C))
-// Operates on integers
+// Push-Relabel implementation of the cost-scaling algo
+// Runs in O( <max_flow> * log(V * max_edge_cost))
+// = O( V^3 * log(V * C)) // Operates on integers
 template<typename flow_t = int, typename cost_t = int>
 struct mcSFlow{
   struct Edge{
     cost_t c;
     flow_t f;
     int to, rev;
-    Edge(int _to, cost_t _c, flow_t _f, int _rev):c(_c), f(_f), to(_to), rev(_rev){}
+    Edge(int _to, cost_t _c, flow_t _f, int _rev):
+      c(_c), f(_f), to(_to), rev(_rev) {}
   };
-  const cost_t INFCOST = numeric_limits<cost_t>::max()/2;
-  const cost_t INFFLOW = numeric_limits<flow_t>::max()/2;
+  const cost_t INF_C = numeric_limits<cost_t>::max()/2;
+  const cost_t INF_F = numeric_limits<flow_t>::max()/2;
   cost_t epsilon;
   int N, S, T;
   vector<vector<Edge> > G;
   vector<unsigned int> isEnqueued, state;
-  mcSFlow(int _N, int _S, int _T):epsilon(0), N(_N), S(_S), T(_T), G(_N){}
+  mcSFlow(int _N, int _S, int _T):
+    epsilon(0), N(_N), S(_S), T(_T), G(_N){}
   void add_edge(int a, int b, cost_t cost, flow_t cap){
     if(a==b){assert(cost>=0); return;}
     cost*=N;// to preserve integer-values
@@ -44,7 +46,7 @@ struct mcSFlow{
       addFlow = 0;
       fill(state.begin(), state.end(), 0);
       auto top = path.begin();
-      Edge dummy(S, 0, INFFLOW, -1);
+      Edge dummy(S, 0, INF_F, -1);
       *top++ = &dummy;
       while(top != path.begin()){
         int n = (*prev(top))->to;
@@ -87,7 +89,7 @@ struct mcSFlow{
     excess[G[e.to][e.rev].to]-=amt;
   }
   void relabel(int vertex){
-    cost_t newHeight = -INFCOST;
+    cost_t newHeight = -INF_C;
     for(unsigned int i=0;i<G[vertex].size();++i){
       Edge const&e = G[vertex][i];
       if(e.f && newHeight < h[e.to]-e.c){
