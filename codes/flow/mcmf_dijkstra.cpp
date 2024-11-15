@@ -9,7 +9,7 @@ struct MCMF { // 0-base
   bitset<MAXV> inq; int n, s, t;
   T dis[MAXV], up[MAXV], pot[MAXV];
   bool BellmanFord() {
-    fill_n(dis, n, INF), fill_n(inq, n, 0);
+    fill_n(dis, n, INF); inq.reset();
     queue<int> q;
     auto relax = [&](int u, T d, T cap, Edge *e) {
       if (cap > 0 and dis[u] > d) {
@@ -30,11 +30,11 @@ struct MCMF { // 0-base
   }
   bool Dijkstra() {
     fill_n(dis, n, INF);
-    MinHeap<pii> pq;
+    MinHeap<pair<T,int>> pq;
     auto relax = [&](int u, T d, T cap, Edge *e) {
       if (cap > 0 and dis[u] > d) {
         dis[u] = d, up[u] = cap, past[u] = e;
-        pq.ee(pii(d, u));
+        pq.emplace(d, u);
       }
     };
     relax(s, 0, INF, 0);
@@ -67,7 +67,7 @@ struct MCMF { // 0-base
     for (int i = 0; i < n; ++i) G[i].clear();
   }
   void add_edge(int a, int b, T cap, T c) {
-    G[a].eb(edge{ a, b, SZ(G[b]), cap, 0, c });
-    G[b].eb(edge{ b, a, SZ(G[a])-1, 0, 0, -c });
+    G[a].eb(Edge{ a, b, SZ(G[b]), cap, 0, c });
+    G[b].eb(Edge{ b, a, SZ(G[a])-1, 0, 0, -c });
   }
 };
