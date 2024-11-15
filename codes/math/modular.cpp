@@ -33,5 +33,5 @@ template <typename T> struct M {
   friend M &operator/=(M &a, M b) { return a = a / b; }
 };
 using Mod = M<int>;
-template <> int Mod::MOD = 1'000'000'007;
+template <> int Mod::MOD = 1e9+7;
 int &MOD = Mod::MOD;

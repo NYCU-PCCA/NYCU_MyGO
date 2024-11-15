@@ -1,6 +1,3 @@
-template <typename T> inline constexpr
-T inf = numeric_limits<T>::max() / 2;
-
 constexpr i64 mod = 1E9 + 7;
 
 template <size_t N>
