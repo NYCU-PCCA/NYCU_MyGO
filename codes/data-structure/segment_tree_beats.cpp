@@ -94,14 +94,6 @@ void tag_down(int l, int r, int rt) {
   }
 }
 
-void build(int l, int r, int rt) {
-  if (l == r) return seg[rt] = node(a[l]), void();
-  int mid = (l + r) >> 1;
-  build(l, mid, rt << 1);
-  build(mid + 1, r, rt << 1 | 1);
-  seg[rt] = seg[rt << 1] + seg[rt << 1 | 1];
-}
-
 void modifymax(
   int L, int R, int l, int r, int rt, int t) {
   if (L <= l && R >= r && t < seg[rt].smi)
@@ -149,21 +141,10 @@ int query(int L, int R, int l, int r, int rt) {
     query(L, R, mid + 1, r, rt << 1 | 1);
 }
 
-int main() {
-  ios::sync_with_stdio(0), cin.tie(0);
-  int n, m;
-  cin >> n >> m;
-  for (int i = 1; i <= n; ++i) cin >> a[i];
-  build(1, n, 1);
-  while (m--) {
-    int k, x, y;
-    int t;
-    cin >> k >> x >> y, ++x;
-    if (k == 0) cin >> t, modifymin(x, y, 1, n, 1, t);
-    else if (k == 1)
-      cin >> t, modifymax(x, y, 1, n, 1, t);
-    else if (k == 2)
-      cin >> t, modifyadd(x, y, 1, n, 1, t);
-    else cout << query(x, y, 1, n, 1) << "\n";
-  }
-}
+void build(int l, int r, int rt) {
+  if (l == r) return seg[rt] = node(a[l]), void();
+  int mid = (l + r) >> 1;
+  build(l, mid, rt << 1);
+  build(mid + 1, r, rt << 1 | 1);
+  seg[rt] = seg[rt << 1] + seg[rt << 1 | 1];
+} // input a[], build(1, n, 1);
