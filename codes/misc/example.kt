@@ -13,10 +13,8 @@ private class Scanner {
     fun nextInt() = next().toInt()
     fun nextLong() = next().toLong()
 }
-
 fun Long.toBigInteger() = BigInteger.valueOf(this)
 fun Int.toBigInteger() = BigInteger.valueOf(toLong())
-
 fun main() {
     val sc = Scanner()
     val buf = StringBuilder()
@@ -27,24 +25,20 @@ fun main() {
     val v = ArrayList<Int>()
 
     fun dfs(x: Int, y: Int, s: Int = 0) {
-        for((dx,dy) in dx zip dy)
-            dfs(x+dx, y+dy, s)
+        for((dx,dy) in dx zip dy) dfs(x+dx, y+dy, s)
     }
     dfs(0,0)
 
-    val st = v.toSet().toIntArray()
-    st.sort()
-    println("${st.joinToString()}\n")
+    val st = v.toSet().toIntArray().sorted()
+    println("${st.joinToString()}\n") // st.sort()
 
     for(i in 1..sc.nextInt()) {
-        val k = sc.nextInt()
-        val x = st.binarySearch(k)
-        buf.append("$k\n")
+        val x = st.binarySearch(sc.nextInt())
+        buf.append("$x\n")
     }
 
     val a = BigInteger(sc.next())
     val b = sc.nextLong().toBigInteger()
     println(a * b)
-
     print(buf)
 }
