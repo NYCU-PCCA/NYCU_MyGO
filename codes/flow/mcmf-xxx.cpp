@@ -1,10 +1,10 @@
 struct MinCostMaxFlow { // 0-base
   struct Edge {
     int from, to, cap, flow, cost, rev;
-  } *past[N];
-  vector<Edge> G[N];
-  int inq[N], n, s, t;
-  int dis[N], up[N], pot[N];
+  } *past[MAXN];
+  vector<Edge> G[MAXN];
+  int inq[MAXN], n, s, t;
+  int dis[MAXN], up[MAXN], pot[MAXN];
   bool BellmanFord() {
     fill_n(dis, n, INF), fill_n(inq, n, 0);
     queue<int> q;

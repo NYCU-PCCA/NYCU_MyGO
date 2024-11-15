@@ -9,8 +9,9 @@ struct AC_Automatan {
   int input(string &s) {
     int X = 1;
     for (char c : s) {
-      if (!~nx[X][c - 'A']) nx[X][c - 'A'] = newnode();
-      X = nx[X][c - 'A'];
+      int &y = nx[X][c - 'A']
+      if (y == -1) y = newnode();
+      X = y;
     }
     return X; // return the end node of string
   }
@@ -21,9 +22,9 @@ struct AC_Automatan {
       int R = q.front();
       q.pop(), ord[t++] = R;
       for (int i = 0; i < sigma; ++i)
-        if (~nx[R][i]) {
+        if (nx[R][i] != -1) {
           int X = rnx[R][i] = nx[R][i], Z = fl[R];
-          for (; Z && !~nx[Z][i]; ) Z = fl[Z];
+          for (; Z && nx[Z][i] == -1; ) Z = fl[Z];
           fl[X] = Z ? nx[Z][i] : 1, q.push(X);
         }
         else rnx[R][i] = R > 1 ? rnx[fl[R]][i] : 1;

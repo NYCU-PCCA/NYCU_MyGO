@@ -1,6 +1,6 @@
 struct SteinerTree { // 0-base
-  int n, dst[N][N], dp[1 << T][N], tdst[N];
-  int vcst[N]; // the cost of vertexs
+  int n, dst[MAXN][MAXN], dp[1 << T][MAXN], tdst[MAXN];
+  int vcst[MAXN]; // the cost of vertexs
   void init(int _n) {
     n = _n;
     for (int i = 0; i < n; ++i) {

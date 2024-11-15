@@ -28,7 +28,7 @@ struct Dinic { // 0-base
     while (!q.empty()) {
       int tmp = q.front(); q.pop();
       for (Edge &e : G[tmp])
-        if (!~dis[e.to] and e.fl != e.cap)
+        if (dis[e.to] == -1 and e.fl != e.cap)
           dis[e.to] = dis[tmp] + 1, q.push(e.to);
     }
     return dis[t] != -1;

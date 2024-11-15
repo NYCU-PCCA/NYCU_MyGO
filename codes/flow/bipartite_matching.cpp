@@ -14,10 +14,10 @@ struct Bipartite_Matching { // 0-base
     queue<int> q;
     fill(ALL(dis), -1);
     for (int i = 0; i < l; ++i)
-      if (!~mp[i]) dis[i] = 0, q.push(i);
+      if (mp[i] == -1) dis[i] = 0, q.push(i);
     while (!q.empty()) {
       int u = q.front(); q.pop();
-      for (int e : G[u]) if (!~dis[mq[e]]) {
+      for (int e : G[u]) if (dis[mq[e]] == -1) {
         dis[mq[e]] = dis[u] + 1, q.push(mq[e]);
       }
     }
@@ -29,7 +29,7 @@ struct Bipartite_Matching { // 0-base
     while (bfs()) {
       fill(ALL(cur), 0);
       for (int i = 0; i < l; ++i)
-        res += (!~mp[i] and dfs(i));
+        res += (mp[i] == -1 and dfs(i));
     }
     return res; // (i, mp[i] != -1)
   }

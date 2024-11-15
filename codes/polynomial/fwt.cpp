@@ -8,9 +8,9 @@ void fwt(int *a, int n, int op) { //or
       for (int j = i; j < i + (L >> 1); ++j)
         a[j + (L >> 1)] += a[j] * op;
 }
-const int N = 21;
-int f[N][1 << N], g[N][1 << N], h[N][1 << N], ct[1 << N];
-void subset_convolution(int *a, int *b, int *c, int L) {
+constexpr int N = 21, P2N = 1 << N;
+int f[N][P2N], g[N][P2N], h[N][P2N], ct[P2N];
+void subset_convolution(int *a, int *b, int *c, int L){
   // c_k = \sum_{i | j = k, i & j = 0} a_i * b_j
   int n = 1 << L;
   for (int i = 1; i < n; ++i)

@@ -1,9 +1,9 @@
 struct MinCostCirculation { // 0-base
   struct Edge {
     int from, to, cap, fcap, flow, cost, rev;
-  } *past[N];
-  vector<Edge> G[N];
-  int dis[N], inq[N], n;
+  } *past[MAXN];
+  vector<Edge> G[MAXN];
+  int dis[MAXN], inq[MAXN], n;
   void BellmanFord(int s) {
     fill_n(dis, n, INF), fill_n(inq, n, 0);
     queue<int> q;

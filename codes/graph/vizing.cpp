@@ -3,7 +3,7 @@ const int N = 105;
 int C[N][N], G[N][N], X[N], vst[N], n;
 void init(int _n) { n = _n;
   for (int i = 0; i <= n; ++i)
-    for (int j = 0; j <= n; ++j) 
+    for (int j = 0; j <= n; ++j)
       C[i][j] = G[i][j] = 0;
 }
 void solve(vector<pii> &E) {
