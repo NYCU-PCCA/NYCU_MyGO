@@ -1,41 +1,39 @@
-struct PalindromicTree {
-  struct node {
-    int nxt[26], f, len; // num = depth of fail link
-    int cnt, num;        // = #pal_suffix of this node
-    node(int l = 0) : nxt{},f(0),len(l),cnt(0),num(0) {}
-  };
-  vector<node> st; vector<int> s; int last, n;
-  void init() {
-    st.clear(); s.clear(); last = 1; n = 0;
-    st.emplace_back(0); st.emplace_back(-1);
-    st[0].f = 1; s.emplace_back(-1);
+namespace pam {
+int sz, tot, last;
+int ch[MAXN][26], len[MAXN], fail[MAXN];
+int cnt[MAXN], dep[MAXN], dif[MAXN], slink[MAXN];
+char s[MAXN];
+int node(int l) {  // 建立一个长度为 l 的新节点
+  sz++;
+  memset(ch[sz], 0, sizeof(ch[sz]));
+  len[sz] = l; fail[sz] = cnt[sz] = dep[sz] = 0;
+  return sz;
+}
+void clear() {  // 初始化
+  sz = -1; last = 0;
+  s[tot = 0] = '$';
+  node(0); node(-1);
+  fail[0] = 1;
+}
+int getfail(int x) {  // 找到后缀回文
+  while (s[tot - len[x] - 1] != s[tot]) x = fail[x];
+  return x;
+}
+void insert(char c) {  // 建树
+  s[++tot] = c;
+  int now = getfail(last);
+  if (ch[now][c - 'a'] == 0) {
+    int x = node(len[now] + 2);
+    fail[x] = ch[getfail(fail[now])][c - 'a'];
+    dep[x] = dep[fail[x]] + 1;
+    ch[now][c - 'a'] = x;
+    dif[x] = len[x] - len[fail[x]];
+    if (dif[x] == dif[fail[x]])
+      slink[x] = slink[fail[x]];
+    else
+      slink[x] = fail[x];
   }
-  int getFail(int x) {
-    while (s[n - st[x].len - 1] != s[n]) x = st[x].f;
-    return x;
-  }
-  void add(int c) {
-    s.emplace_back(c -= 'a'); ++n;
-    int cur = getFail(last);
-    if (!st[cur].nxt[c]) {
-      int now = (int)st.size();
-      st.emplace_back(st[cur].len + 2);
-      st[now].f = st[getFail(st[cur].f)].nxt[c];
-      st[cur].nxt[c] = now;
-      st[now].num = st[st[now].f].num + 1;
-    }
-    last = st[cur].nxt[c]; ++st[last].cnt;
-  }
-  void dpcnt() { // cnt = #occurence in whole str
-    for (auto nd : st | views::reverse)
-      st[nd.f].cnt += nd.cnt;
-  }
-  int size() { return (int)st.size() - 2; }
-} pt; /* string s; cin >> s; pt.init();
-for (int i = 0; i < SZ(s); i++) {
-  int prvsz = pt.size(); pt.add(s[i]);
-  if (prvsz != pt.size()) {
-    int r = i, l = r - pt.st[pt.last].len + 1;
-    // pal @ [l,r]: s.substr(l, r-l+1)
-  }
-} */
+  last = ch[now][c - 'a'];
+  cnt[last]++;
+}
+}  // namespace pam
