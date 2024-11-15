@@ -100,6 +100,8 @@
 \makeatother
 \lstset{
   language=C++,                   % the language of the code
+  morekeywords={*,size_t,int64_t,ll,ld,pii},    % if you want to add more keywords to the set
+  morekeywords={[2]{ALL,eb,chmax,chmin}},
   basicstyle=\footnotesize\ttfamily,  % the size of the fonts that are used for the code
   % basicstyle=\linespread{0.0}\footnotesize\ttfamily,
   %numbers=left,                      % where to put the line-numbers
@@ -123,12 +125,6 @@
   literate={\ \ }{{\ }}1,
   aboveskip=-0.4em,
   belowskip=-0.4375em,
-}
-
-\lstdefinelanguage{C++}
-{
-  morekeywords={*,size_t,int64_t,ll,ld,pii},    % if you want to add more keywords to the set
-  morekeywords={[2]{ALL,eb,chmax,chmin}},
 }
 
 \lstdefinelanguage{vim}
