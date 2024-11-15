@@ -1,20 +1,10 @@
 constexpr int MOD = 998'244'353;
-int bit_ceil(int a){return 1<<__lg(a-1)+1;}
-int modpow(ll a, ll b){
-  ll res = 1;
-  while (b){
-    if (b & 1)
-      res = res * a % MOD;
-    a = a * a % MOD;
-    b /= 2;
-  }
-  return res;
-}
+// fpow / modinv / mul / add / sub
 int get_root(int n, int P = MOD){ // ensure 0 <= n < p
   if (P == 2 or n == 0)
     return n;
   auto check = [&](ll x)
-  { return modpow(int(x), (P - 1) / 2); };
+  { return fpow(x, (P - 1) / 2); };
   if (check(n) != 1)
     return -1;
   mt19937 rnd(7122);
@@ -34,17 +24,13 @@ int get_root(int n, int P = MOD){ // ensure 0 <= n < p
       r = M(r, e);
   return int(r.first);//sqrt(n) MOD P where P is prime
 }
-int modinv(ll a){return modpow(a, MOD - 2);}
-int mul(ll a, ll b){return a * b % MOD;}
-int add(ll a, ll b){return (a + b) % MOD;}
-int sub(ll a, ll b){return (a - b + MOD) % MOD;}
 
 template <int MOD, int G, int MAXN>
 struct NTT {
   static_assert(MAXN == (MAXN & -MAXN));
   int roots[MAXN];
   NTT() {
-    int r = modpow(G, (MOD - 1) / MAXN);
+    int r = fpow(G, (MOD - 1) / MAXN);
     for (int i = MAXN >> 1; i; i >>= 1) {
       roots[i] = 1;
       for (int j = 1; j < i; j++)
@@ -135,7 +121,7 @@ S Pow(S a, ll M) { // period MOD*(MOD-1)
   a = Ln(a);
   imul(int(M % MOD));
   a = Exp(a);
-  imul(modpow(c, int(M % (MOD - 1))));
+  imul(fpow(c, t(M % (MOD - 1))));
   return a; // MOD x^N where N=a.size()
 }
 S Sqrt(const S &v) { // need: QuadraticResidue
@@ -235,9 +221,4 @@ int LinearRecursionKth(S a, S c, int64_t k)
   return mul(p[0], modinv(q[0]));
 } // a_n = \sum c_j a_(n-j), c_0 is not used
 
-void solve() {
-  int n; cin >> n; S arr(n);
-  for (int &x : arr) cin >> x;
-  arr = Ln(arr);
-  for (int x : arr) cout << x << ' ';
-}
+int n; S arr(n); arr = Ln(arr);
