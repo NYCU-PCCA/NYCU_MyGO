@@ -39,13 +39,13 @@ int mul(ll a, ll b){return a * b % MOD;}
 int add(ll a, ll b){return (a + b) % MOD;}
 int sub(ll a, ll b){return (a - b + MOD) % MOD;}
 
-template <int MOD, int G, int maxn>
+template <int MOD, int G, int MAXN>
 struct NTT {
-  static_assert(maxn == (maxn & -maxn));
-  int roots[maxn];
+  static_assert(MAXN == (MAXN & -MAXN));
+  int roots[MAXN];
   NTT() {
-    int r = modpow(G, (MOD - 1) / maxn);
-    for (int i = maxn >> 1; i; i >>= 1) {
+    int r = modpow(G, (MOD - 1) / MAXN);
+    for (int i = MAXN >> 1; i; i >>= 1) {
       roots[i] = 1;
       for (int j = 1; j < i; j++)
         roots[i + j] = mul(roots[i + j - 1], r);

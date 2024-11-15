@@ -1,6 +1,6 @@
 struct Matrix {
   int n, m;
-  int M[maxn][maxn];
+  int M[MAXN][MAXN];
   int row_swap(int i, int j) {
     if (i == j) return 0;
     for (int k = 0; k < m; ++k)

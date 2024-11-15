@@ -1,8 +1,8 @@
 #define fi(s, n) for (int i = (int)(s); i < (int)(n); ++i)
-template<int maxn, int P, int RT> // maxn = 2^k
+template<int MAXN, int P, int RT> // MAXN = 2^k
 struct Poly : vector<int> { // coefficients in [0, P)
   using vector<int>::vector;
-  static NTT<maxn, P, RT> ntt;
+  static NTT<MAXN, P, RT> ntt;
   int n() const { return (int)size(); } // n() >= 1
   Poly(const Poly &p, int m) : vector<int>(m) {
     copy_n(p.data(), min(p.n(), m), data());

@@ -1,6 +1,6 @@
-constexpr int maxc = 10, maxn = 1e5 + 10;
+constexpr int MAXC = 10, MAXN = 1e5 + 10;
 struct DBSeq {
-  int C, N, K, L, buf[maxc * maxn]; // K <= C^N
+  int C, N, K, L, buf[MAXC * MAXN]; // K <= C^N
   void dfs(int *out, int t, int p, int &ptr) {
     if (ptr >= L) return;
     if (t > N) {

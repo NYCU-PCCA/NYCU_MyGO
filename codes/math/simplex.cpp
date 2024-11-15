@@ -1,12 +1,12 @@
-const int MAXN = 11000, MAXM = 405;
-const double eps = 1E-10;
+constexpr int MAXN = 11000, MAXM = 405;
+constexpr double eps = 1E-10;
 double a[MAXN][MAXM], b[MAXN], c[MAXM];
 double d[MAXN][MAXM], x[MAXM];
 int ix[MAXN + MAXM]; // !!! array all indexed from 0
 // max{cx} subject to {Ax<=b,x>=0}
 // n: constraints, m: vars !!!
 // x[] is the optimal solution vector
-// usage : 
+// usage :
 // value = simplex(a, b, c, N, M);
 double simplex(int n, int m){
   ++m;
@@ -59,5 +59,5 @@ double simplex(int n, int m){
       x[ix[i]] = d[i-m][m];
     }
   }
-  return ans; 
+  return ans;
 }

@@ -1,6 +1,6 @@
 struct matrix { //m variables, n equations
   int n, m;
-  fraction M[maxn][maxn + 1], sol[maxn];
+  fraction M[MAXN][MAXN + 1], sol[MAXN];
   int solve() { //-1: inconsistent, >= 0: rank
     for (int i = 0; i < n; ++i) {
       int piv = 0;

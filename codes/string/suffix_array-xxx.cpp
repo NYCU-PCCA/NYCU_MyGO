@@ -1,5 +1,5 @@
 struct suffix_array {
-  int box[maxn], tp[maxn], m;
+  int box[MAXN], tp[MAXN], m;
   bool not_equ(int a, int b, int k, int n) {
     return ra[a] != ra[b] || a + k >= n ||
       b + k >= n || ra[a + k] != ra[b + k];
@@ -35,7 +35,7 @@ struct suffix_array {
       he[ra[j]] = k, k = max(0, k - 1);
     }
   }
-  int sa[maxn], ra[maxn], he[maxn];
+  int sa[MAXN], ra[MAXN], he[MAXN];
   void build(const string &s) {
     int n = SZ(s);
     fill_n(sa, n, 0), fill_n(ra, n, 0), fill_n(he, n, 0);

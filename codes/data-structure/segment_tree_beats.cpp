@@ -1,4 +1,4 @@
-const int maxc = 200005;
+const int MAXC = 200005;
 const int INF = 1e18;
 
 struct node {
@@ -40,9 +40,9 @@ struct node {
     rt.lazyadd = 0;
     return rt;
   }
-} seg[maxc << 2];
+} seg[MAXC << 2];
 
-int a[maxc];
+int a[MAXC];
 
 void give_tag_min(int rt, int t) {
   if (t >= seg[rt].mx) return;
