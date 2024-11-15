@@ -1,66 +1,66 @@
 struct Cent_Dec { // 1-base
-  vector<pll> G[N];
-  pll info[N]; // store info. of itself
-  pll upinfo[N]; // store info. of climbing up
-  int n, pa[N], layer[N], sz[N], done[N];
-  ll dis[__lg(N) + 1][N];
+  vector<pii> G[MAXN];
+  pii info[MAXN], upinfo[MAXN]; // itself / climbing up
+  int n, pa[MAXN], layer[MAXN], sz[MAXN], done[MAXN];
+  ll dis[__lg(MAXN) + 1][MAXN];
   void init(int _n) {
     n = _n, layer[0] = -1;
     fill_n(pa + 1, n, 0), fill_n(done + 1, n, 0);
     for (int i = 1; i <= n; ++i) G[i].clear();
   }
   void add_edge(int a, int b, int w) {
-    G[a].pb(pll(b, w)), G[b].pb(pll(a, w));
+    G[a].eb(b, w), G[b].eb(a, w);
   }
   void get_cent(
-    int u, int f, int &mx, int &c, int num) {
+    int x, int f, int &mx, int &c, int num) {
     int mxsz = 0;
-    sz[u] = 1;
-    for (pll e : G[u])
-      if (!done[e.X] && e.X != f) {
-        get_cent(e.X, u, mx, c, num);
-        sz[u] += sz[e.X], mxsz = max(mxsz, sz[e.X]);
+    sz[x] = 1;
+    for (auto [y,w] : G[x])
+      if (!done[y] and y != f) {
+        get_cent(y, x, mx, c, num);
+        sz[x] += sz[y], mxsz = max(mxsz, sz[y]);
       }
-    if (mx > max(mxsz, num - sz[u]))
-      mx = max(mxsz, num - sz[u]), c = u;
+    if (mx > max(mxsz, num - sz[x]))
+      mx = max(mxsz, num - sz[x]), c = x;
+    if (chmin(mx, max(mxsz, num - sz[x]))) c = x;
   }
-  void dfs(int u, int f, ll d, int org) {
+  void dfs(int x, int f, ll d, int org) {
     // if required, add self info or climbing info
-    dis[layer[org]][u] = d;
-    for (pll e : G[u])
-      if (!done[e.X] && e.X != f)
-        dfs(e.X, u, d + e.Y, org);
+    dis[layer[org]][x] = d;
+    for (auto [y,w] : G[x])
+      if (!done[y] && y != f)
+        dfs(y, x, d + w, org);
   }
-  int cut(int u, int f, int num) {
+  int cut(int x, int f, int num) {
     int mx = 1e9, c = 0, lc;
-    get_cent(u, f, mx, c, num);
+    get_cent(x, f, mx, c, num);
     done[c] = 1, pa[c] = f, layer[c] = layer[f] + 1;
-    for (pll e : G[c])
-      if (!done[e.X]) {
-        if (sz[e.X] > sz[c])
-          lc = cut(e.X, c, num - sz[c]);
-        else lc = cut(e.X, c, sz[e.X]);
-        upinfo[lc] = pll(), dfs(e.X, c, e.Y, c);
+    for (auto [y,w] : G[c])
+      if (!done[y]) {
+        if (sz[y] > sz[c])
+          lc = cut(y, c, num - sz[c]);
+        else lc = cut(y, c, sz[y]);
+        upinfo[lc] = pii(), dfs(y, c, w, c);
       }
     return done[c] = 0, c;
   }
   void build() { cut(1, 0, n); }
-  void modify(int u) {
-    for (int a = u, ly = layer[a]; a;
+  void modify(int x) {
+    for (int a = x, ly = layer[a]; a;
          a = pa[a], --ly) {
-      info[a].X += dis[ly][u], ++info[a].Y;
+      info[a].X += dis[ly][x], ++info[a].Y;
       if (pa[a])
-        upinfo[a].X += dis[ly - 1][u], ++upinfo[a].Y;
+        upinfo[a].X += dis[ly - 1][x], ++upinfo[a].Y;
     }
   }
-  ll query(int u) {
+  ll query(int x) {
     ll rt = 0;
-    for (int a = u, ly = layer[a]; a;
+    for (int a = x, ly = layer[a]; a;
          a = pa[a], --ly) {
-      rt += info[a].X + info[a].Y * dis[ly][u];
+      rt += info[a].X + info[a].Y * dis[ly][x];
       if (pa[a])
         rt -=
-          upinfo[a].X + upinfo[a].Y * dis[ly - 1][u];
+          upinfo[a].X + upinfo[a].Y * dis[ly - 1][x];
     }
     return rt;
   }
