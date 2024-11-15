@@ -20,20 +20,20 @@ int getfail(int x) {  // 找到後綴回文
   return x;
 }
 void insert(char c) {  // 建樹
-  s[++tot] = c;
+  s[++tot] = c; int i = c - 'a';
   int now = getfail(last);
-  if (ch[now][c - 'a'] == 0) {
+  if (ch[now][i] == 0) {
     int x = node(len[now] + 2);
-    fail[x] = ch[getfail(fail[now])][c - 'a'];
+    fail[x] = ch[getfail(fail[now])][i];
     dep[x] = dep[fail[x]] + 1;
-    ch[now][c - 'a'] = x;
+    ch[now][i] = x;
     dif[x] = len[x] - len[fail[x]];
     if (dif[x] == dif[fail[x]])
       slink[x] = slink[fail[x]];
     else
       slink[x] = fail[x];
   }
-  last = ch[now][c - 'a'];
+  last = ch[now][i];
   cnt[last]++;
 }
 }  // namespace pam
