@@ -116,13 +116,52 @@
   breaklines=true,                    % sets automatic line breaking
   breakatwhitespace=false,            % sets if automatic breaks should only happen at whitespace
   escapeinside={\%*}{*)},             % if you want to add a comment within your code
-  morekeywords={*,size_t,int64_t},    % if you want to add more keywords to the set
-  keywordstyle=\bfseries\color{NavyBlue},
-  commentstyle=\itshape\color{BrickRed},
-  stringstyle=\itshape\color{Green},
+  keywordstyle={\bfseries\color{RoyalBlue}},
+  keywordstyle={[2]\bfseries\color{BurntOrange}},
+  commentstyle={\itshape\color{BrickRed}},
+  stringstyle={\itshape\color{ForestGreen}},
   literate={\ \ }{{\ }}1,
   aboveskip=-0.4em,
   belowskip=-0.4375em,
+}
+
+\lstdefinelanguage{vim}
+{
+  morekeywords={*,size_t,int64_t,ll,ld,pii},    % if you want to add more keywords to the set
+  morekeywords={[2]{ALL,eb,chmax,chmin}},
+}
+
+\lstdefinelanguage{vim}
+{
+  % list of keywords
+  morekeywords={
+    set, se,
+    colo, syn,
+    let,
+    map, nmap, ino, no,
+    filetype,
+    indent,
+    on, off,
+    au,
+    Plugin,
+    call,
+    ca,
+  },
+  morecomment=[l]{"}, % l is for line comment
+  morestring=[b]' % defines that strings are enclosed in double quotes
+}
+
+\lstdefinelanguage{kotlin}{
+  comment=[l]{//},
+  emph={filter, first, firstOrNull, forEach, lazy, map, mapNotNull, println},
+  emphstyle={\color{OrangeRed}},
+  identifierstyle=\color{black},
+  keywords={!in, !is, abstract, actual, annotation, as, as?, break, by, catch, class, companion, const, constructor, continue, crossinline, data, delegate, do, dynamic, else, enum, expect, external, false, field, file, final, finally, for, fun, get, if, import, in, infix, init, inline, inner, interface, internal, is, lateinit, noinline, null, object, open, operator, out, override, package, param, private, property, protected, public, receiveris, reified, return, return@, sealed, set, setparam, super, suspend, tailrec, this, throw, true, try, typealias, typeof, val, var, vararg, when, where, while},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+  morestring=[s]{"""*}{*"""},
+  morekeywords={[2]{@Deprecated, @JvmField, @JvmName, @JvmOverloads, @JvmStatic, @JvmSynthetic, Array, Byte, Double, Float, Int, Integer, Iterable, Long, Runnable, Short, String, Any, Unit, Nothing}},
+  sensitive=true,
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -175,43 +214,6 @@
 \scriptsize
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\lstdefinelanguage{vim}
-{
-  % list of keywords
-  morekeywords={
-    set, se,
-    colo, syn,
-    let,
-    map, nmap, ino, no,
-    filetype,
-    indent,
-    on, off,
-    au,
-    Plugin,
-    call,
-    ca,
-  },
-  morecomment=[l]{"}, % l is for line comment
-  morestring=[b]' % defines that strings are enclosed in double quotes
-}
-
-\lstdefinelanguage{kotlin}{
-  comment=[l]{//},
-  commentstyle={\color{gray}\ttfamily},
-  emph={filter, first, firstOrNull, forEach, lazy, map, mapNotNull, println},
-  emphstyle={\color{OrangeRed}},
-  identifierstyle=\color{black},
-  keywords={!in, !is, abstract, actual, annotation, as, as?, break, by, catch, class, companion, const, constructor, continue, crossinline, data, delegate, do, dynamic, else, enum, expect, external, false, field, file, final, finally, for, fun, get, if, import, in, infix, init, inline, inner, interface, internal, is, lateinit, noinline, null, object, open, operator, out, override, package, param, private, property, protected, public, receiveris, reified, return, return@, sealed, set, setparam, super, suspend, tailrec, this, throw, true, try, typealias, typeof, val, var, vararg, when, where, while},
-  keywordstyle={\color{NavyBlue}\bfseries},
-  morecomment=[s]{/*}{*/},
-  morestring=[b]",
-  morestring=[s]{"""*}{*"""},
-  ndkeywords={@Deprecated, @JvmField, @JvmName, @JvmOverloads, @JvmStatic, @JvmSynthetic, Array, Byte, Double, Float, Int, Integer, Iterable, Long, Runnable, Short, String, Any, Unit, Nothing},
-  ndkeywordstyle={\color{BurntOrange}\bfseries},
-  sensitive=true,
-  stringstyle={\color{ForestGreen}\ttfamily},
-}
 
 \newcommand{\Prefix}{./}
 \newcommand{\HashFile}[1]{\captureshell{cpp #1 -dD -P -fpreprocessed | tr -d '[:space:]' | md5sum | cut -c-6}}
