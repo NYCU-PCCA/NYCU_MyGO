@@ -10,7 +10,7 @@ bool is_prime(int n) { // int tns[]
         int x = fpow(a, n >> s, n);
         int i = 0;
         while (i < s and (x+1)%n > 2)
-            x = (x * x % n), i++;
+            x = (i128(x) * x % n), i++;
         if (i and x != n-1) return false;
     }
     return true;
