@@ -1,7 +1,7 @@
-struct Dinic /* BoundedFlow */ { // 0-base, MAXN, INF
+struct Dinic /* BoundedFlow */ { // 0-base, MAXM, INF
   struct edge { int to, cap, flow, rev; };
-  vector<edge> G[MAXN];
-  int n, s, t, dis[MAXN], cur[MAXN], cnt[MAXN];
+  vector<edge> G[MAXM];
+  int n, s, t, dis[MAXM], cur[MAXM], cnt[MAXM];
   void init(int _n) {
     n = _n;
     for (int i = 0; i < n + 2; ++i)
