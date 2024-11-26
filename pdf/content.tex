@@ -1,4 +1,7 @@
 \newcommand{\isLinux}{false}
+\newcommand{\hasPython}{true}
+\newcommand{\hasJava}{true}
+\newcommand{\hasKotlin}{false}
 
 \SectionTitle{Basic}
 \renewcommand\Prefix{../codes/basic/}
@@ -152,10 +155,16 @@
 \IncludeCodeHash[]{Bit Hacks}{bit-hacks.hpp}
 \IncludeCodeHash[]{帶修改莫隊}{mos-algorithm-with-modification.cpp}
 \IncludeCodeHash[]{擬陣交}{matroid_intersection.cpp}
+\if{\hasPython}{true}
 \IncludeCode[language=python]{Python}{misc.py}
-% \IncludeCode[language=java]{Java Example}{example.java}
-% \IncludeCode[language=java]{Java BigInt}{big_number.java}
+\fi
+\if{\hasJava}{true}
+\IncludeCode[language=java]{Java Example}{example.java}
+\IncludeCode[language=java]{Java BigInt}{big_number.java}
+\fi
+\if{\hasKotlin}{true}
 \IncludeCode[language=kotlin]{Kotlin Example}{example.kt}
+\fi
 
 
 \SectionTitle{MyGO!!!}
