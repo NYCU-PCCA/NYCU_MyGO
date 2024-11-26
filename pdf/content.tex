@@ -1,10 +1,14 @@
+\newcommand{\isLinux}{true}
+
 \SectionTitle{Basic}
 \renewcommand\Prefix{../codes/basic/}
 \IncludeCodeHash[]{Debug Macro}{debug.cpp}
+\if{\isLinux}{true}
 \IncludeCode[language=vim]{vimrc}{.vimrc}
 \IncludeCode[language=bash]{precompile}{precompile.sh}
 \IncludeCode[language=bash]{r.sh}{r.sh}
 \IncludeCode[language=bash]{t.sh}{t.sh}
+\fi
 % \IncludeCode[]{Default Code}{df.cpp}
 \IncludeCode[]{Black Magic}{black-magic.cpp}
 \IncludeCode[]{Inc Stack}{inc-stack.cpp}
