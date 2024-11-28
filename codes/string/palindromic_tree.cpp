@@ -1,39 +1,49 @@
-namespace pam {
-int sz, tot, last;
-int ch[MAXN][26], len[MAXN], fail[MAXN];
-int cnt[MAXN], dep[MAXN], dif[MAXN], slink[MAXN];
-char s[MAXN];
-int node(int l) {  // 建立一个長度為 l 的新節點
-  sz++;
-  memset(ch[sz], 0, sizeof(ch[sz]));
-  len[sz] = l; fail[sz] = cnt[sz] = dep[sz] = 0;
-  return sz;
-}
-void clear() {  // 初始化
-  sz = -1; last = 0;
-  s[tot = 0] = '$';
-  node(0); node(-1);
-  fail[0] = 1;
-}
-int getfail(int x) {  // 找到後綴回文
-  while (s[tot - len[x] - 1] != s[tot]) x = fail[x];
-  return x;
-}
-void insert(char c) {  // 建樹
-  s[++tot] = c; int i = c - 'a';
-  int now = getfail(last);
-  if (ch[now][i] == 0) {
-    int x = node(len[now] + 2);
-    fail[x] = ch[getfail(fail[now])][i];
-    dep[x] = dep[fail[x]] + 1;
-    ch[now][i] = x;
-    dif[x] = len[x] - len[fail[x]];
-    if (dif[x] == dif[fail[x]])
-      slink[x] = slink[fail[x]];
-    else
-      slink[x] = fail[x];
+// 迴文樹的每個節點代表一個迴文串
+// len[i] 表示第 i 個節點的長度
+// fail[i] 表示第 i 個節點的失配指針
+// fail[i] 是 i 的次長迴文後綴
+// dep[i] 表示第 i 個節點有幾個迴文後綴
+// nxt[i][c] 表示在節點 i 兩邊加上字元 c 得到的點
+// nxt 邊構成了兩顆分別以 odd 和 even 為根的向下的樹
+// len[odd] = -1, len[even] = 0
+// fail 邊構成了一顆以 odd 為根的向上的樹
+// fail[even] = odd
+// 0 ~ node size 是一個好的 dp 順序
+// walk 是構建迴文樹時 lst 經過的節點
+struct PAM {
+  vector<array<int, 26>> nxt;
+  vector<int> fail, len, dep, walk;
+  int odd, even, lst; string S;
+  int newNode(int l) {
+    fail.eb(0); nxt.eb({}); len.eb(l); dep.eb(0);
+    return fail.size() - 1;
   }
-  last = ch[now][i];
-  cnt[last]++;
-}
-}  // namespace pam
+  PAM() : odd(newNode(-1)), even(newNode(0)) {
+    lst = fail[even] = odd;
+  }
+  void reserve(int l) {
+    fail.reserve(l + 2); len.reserve(l + 2);
+    nxt .reserve(l + 2); dep.reserve(l + 2);
+    walk.reserve(l);
+  }
+  void build(string_view s) {
+    reserve(s.size());
+    for (char c : s) walk.eb(add(c));
+  }
+  int up(int p) {
+    while (S.rbegin()[len[p] + 1] != S.back())
+      p = fail[p];
+    return p;
+  }
+  int add(char c) {
+    S += c;
+    lst = up(lst);
+    c -= 'a';
+    if (!nxt[lst][c])
+      nxt[lst][c] = newNode(len[lst] + 2);
+    int p = nxt[lst][c];
+    fail[p] = lst==odd ? even : nxt[up(fail[lst])][c];
+    lst = p; dep[lst] = dep[fail[lst]] + 1;
+    return lst;
+  }
+};
