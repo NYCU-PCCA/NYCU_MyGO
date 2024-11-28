@@ -1,19 +1,19 @@
 #ifdef DEBUG
-#include <experimental/iterator>
 #define safe cerr<<__PRETTY_FUNCTION__<<" line "<<__LINE__<<" safe\n"
-#define debug(a...) debug_(#a, a)
-#define orange(a...) orange_(#a, a)
-void debug_(auto s, auto ...a) {
-  cerr << "\e[1;32m(" << s << ") = (";
+#define debug(a...) debug_(__LINE__,#a, a)
+void debug_(auto n, auto s, auto ...a) {
+  cerr << "\e[1;32mline " << n << "(" << s << ") = (";
   int f = 0;
   (..., (cerr << (f++ ? ", " : "") << a));
   cerr << ")\e[0m\n";
 }
-void orange_(auto s, auto L, auto R) {
-  cerr << "\e[1;33m[ " << s << " ] = [ ";
+#include <experimental/iterator>
+#define orange(a...) orange_(__LINE__,#a, a)
+void orange_(auto n, auto s, auto L, auto R) {
+  cerr << "\e[1;33mline " << n << "[" << s << "] = [";
   using namespace experimental;
   copy(L, R, make_ostream_joiner(cerr, ", "));
-  cerr << " ]\e[0m\n";
+  cerr << "]\e[0m\n";
 }
 #else
 #define safe ((void)0)
