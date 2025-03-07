@@ -30,6 +30,7 @@ jobs:
       - name: Build
         uses: xu-cheng/latex-action@v3
         with:
+          docker_image: ghcr.io/xu-cheng/texlive-full:20241201
           root_file: pdf/codebook.tex
           latexmk_use_xelatex: true
           latexmk_shell_escape: true
