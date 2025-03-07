@@ -1,12 +1,12 @@
-\newcommand{\isLinux}{true}
-\newcommand{\hasPython}{true}
-\newcommand{\hasJava}{true}
-\newcommand{\hasKotlin}{true}
+\newcommand{\isLinux}{1}
+\newcommand{\hasPython}{1}
+\newcommand{\hasJava}{1}
+\newcommand{\hasKotlin}{1}
 
 \SectionTitle{Basic}
 \renewcommand\Prefix{../codes/basic/}
 \IncludeCodeHash[]{Debug Macro}{debug.cpp}
-\if{\isLinux}{true}
+\if\isLinux1
 \IncludeCode[language=vim]{vimrc}{.vimrc}
 \IncludeCode[language=bash]{precompile}{precompile.sh}
 \IncludeCode[language=bash]{r.sh}{r.sh}
@@ -158,14 +158,14 @@
 \IncludeCodeHash[]{PBDS Custom Policy}{pbds-policy.cpp}
 \IncludeCodeHash[]{帶修改莫隊}{mos-algorithm-with-modification.cpp}
 % \IncludeCodeHash[]{擬陣交}{matroid_intersection.cpp}
-\if{\hasPython}{true}
+\if\hasPython1
 \IncludeCode[language=python]{Python}{misc.py}
 \fi
-\if{\hasJava}{true}
+\if\hasJava1
 \IncludeCode[language=java]{Java Example}{example.java}
 \IncludeCode[language=java]{Java BigInt}{big_number.java}
 \fi
-\if{\hasKotlin}{true}
+\if\hasKotlin1
 \IncludeCode[language=kotlin]{Kotlin Example}{example.kt}
 \fi
 
